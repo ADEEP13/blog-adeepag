@@ -1,754 +1,381 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Loading… — Adeep AG Blog</title>
-  <meta name="description" content="" />
-  <meta property="og:type" content="article" />
-  <meta property="og:site_name" content="Adeep AG Blog" />
-  <meta property="og:title" content="" />
-  <meta property="og:description" content="" />
-  <meta property="og:image" content="" />
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Arvo:wght@700&family=Archivo+Black&family=Comic+Neue:wght@400;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
-  <style>
-    :root {
-      --bg: #ffffff;
-      --bg-soft: #fafafa;
-      --text: #111111;
-      --text-body: #333333;
-      --text-muted: #777777;
-      --border: #e0e0e0;
-      --border-hard: #000000;
-      --accent: #2788c7;
-      --accent-soft: #eaf4fb;
-      --tag-bg: #f2f2f2;
-      --card-bg: #ffffff;
-      --featured-bg: #f7f9fc;
-      --code-bg: #1e1e1e;
-      --code-text: #eaeaea;
-      --blockquote-bg: #f7f9fc;
-      --sidebar-w: 220px;
-    }
-    html.dark {
-      --bg: #14171a;
-      --bg-soft: #1b1f23;
-      --text: #f0f0f0;
-      --text-body: #d0d0d0;
-      --text-muted: #9aa0a6;
-      --border: #2e3338;
-      --border-hard: #f0f0f0;
-      --accent: #5fb3ec;
-      --accent-soft: #1d2c36;
-      --tag-bg: #23272b;
-      --card-bg: #1b1f23;
-      --featured-bg: #1b1f23;
-      --code-bg: #0d0f11;
-      --blockquote-bg: #1b1f23;
-    }
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Loading… — Adeep AG</title>
+<meta name="description" content="" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Arvo:wght@700&family=Archivo+Black&family=Comic+Neue:wght@400;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<style>
+:root {
+  --bg: #ffffff;
+  --bg-soft: #fafafa;
+  --text: #111111;
+  --text-body: #333333;
+  --text-muted: #777777;
+  --border: #e0e0e0;
+  --border-hard: #000000;
+  --accent: #2788c7;
+  --accent-soft: #eaf4fb;
+  --tag-bg: #f2f2f2;
+  --code-bg: #1e1e1e;
+  --code-text: #eaeaea;
+  --blockquote-bg: #f7f9fc;
+  --nav-h: 58px;
+  --content-w: 680px;
+}
+html.dark {
+  --bg: #14171a;
+  --bg-soft: #1b1f23;
+  --text: #f0f0f0;
+  --text-body: #cccccc;
+  --text-muted: #9aa0a6;
+  --border: #2e3338;
+  --border-hard: #f0f0f0;
+  --accent: #5fb3ec;
+  --accent-soft: #1d2c36;
+  --tag-bg: #23272b;
+  --code-bg: #0d0f11;
+  --blockquote-bg: #1b1f23;
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: 'Comic Neue', 'Comic Sans MS', sans-serif;
+  background: var(--bg); color: var(--text);
+  min-height: 100vh; transition: background 0.2s, color 0.2s;
+}
+a { color: var(--accent); text-decoration: none; }
+a:hover { text-decoration: underline; }
+img { display: block; max-width: 100%; }
 
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    html { scroll-behavior: smooth; }
-    body {
-      font-family: 'Comic Neue', 'Comic Sans MS', sans-serif;
-      background: var(--bg);
-      color: var(--text);
-      min-height: 100vh;
-      transition: background 0.2s, color 0.2s;
-    }
-    a { color: inherit; text-decoration: none; }
-    img { display: block; max-width: 100%; }
+/* Nav */
+.nav {
+  position: sticky; top: 0; z-index: 50;
+  height: var(--nav-h); background: var(--bg);
+  border-bottom: 1px solid var(--border);
+  display: flex; align-items: center; padding: 0 24px; gap: 16px;
+  transition: background 0.2s, border-color 0.2s;
+}
+.nav-brand {
+  font-family: 'Arvo', serif; font-weight: 700;
+  font-size: 18px; letter-spacing: -0.3px;
+}
+.nav-brand .dot { color: var(--accent); }
+.nav-brand a { color: inherit; text-decoration: none; }
+.nav-spacer { flex: 1; }
+.nav-link {
+  font-size: 13.5px; color: var(--text-muted);
+  padding: 6px 10px; border-radius: 8px;
+  transition: color 0.15s, background 0.15s;
+  text-decoration: none;
+}
+.nav-link:hover { color: var(--text); background: var(--tag-bg); text-decoration: none; }
+.theme-btn {
+  width: 34px; height: 34px; border-radius: 999px;
+  border: 1.5px solid var(--border); background: var(--bg-soft);
+  cursor: pointer; display: flex; align-items: center; justify-content: center;
+  color: var(--text-muted); transition: border-color 0.2s, color 0.2s;
+}
+.theme-btn:hover { border-color: var(--accent); color: var(--accent); }
 
-    /* Progress bar */
-    #progressBar {
-      position: fixed;
-      top: 0;
-      left: 0;
-      height: 3px;
-      background: var(--accent);
-      width: 0%;
-      z-index: 100;
-      transition: width 0.1s linear;
-    }
+/* Hero */
+.post-hero {
+  max-width: var(--content-w); margin: 48px auto 0; padding: 0 24px;
+}
+.post-hero-image {
+  width: 100%; aspect-ratio: 16/9; object-fit: cover;
+  border-radius: 14px; border: 2px solid var(--border-hard);
+  box-shadow: 6px 6px 0 var(--border-hard); margin-bottom: 36px;
+  display: block;
+}
+.post-hero-emoji {
+  width: 100%; aspect-ratio: 16/9;
+  border-radius: 14px; border: 2px solid var(--border-hard);
+  box-shadow: 6px 6px 0 var(--border-hard); margin-bottom: 36px;
+  background: var(--tag-bg); display: flex; align-items: center;
+  justify-content: center; font-size: 72px;
+}
 
-    /* Nav */
-    .nav {
-      position: sticky;
-      top: 3px;
-      z-index: 50;
-      height: 55px;
-      background: var(--bg);
-      border-bottom: 1px solid var(--border);
-      display: flex;
-      align-items: center;
-      padding: 0 24px;
-      gap: 16px;
-      transition: background 0.2s, border-color 0.2s;
-    }
-    .nav-back {
-      font-size: 13.5px;
-      color: var(--text-muted);
-      display: flex;
-      align-items: center;
-      gap: 5px;
-      padding: 6px 10px;
-      border-radius: 8px;
-      transition: color 0.15s, background 0.15s;
-      flex-shrink: 0;
-    }
-    .nav-back:hover { color: var(--text); background: var(--tag-bg); }
-    .nav-brand {
-      font-family: 'Arvo', serif;
-      font-weight: 700;
-      font-size: 17px;
-      flex: 1;
-      text-align: center;
-    }
-    .nav-brand .dot { color: var(--accent); }
-    .theme-btn {
-      width: 34px;
-      height: 34px;
-      border-radius: 999px;
-      border: 1.5px solid var(--border);
-      background: var(--bg-soft);
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: var(--text-muted);
-      transition: border-color 0.2s, color 0.2s;
-      flex-shrink: 0;
-    }
-    .theme-btn:hover { border-color: var(--accent); color: var(--accent); }
+/* Meta header */
+.post-header { max-width: var(--content-w); margin: 0 auto 36px; padding: 0 24px; }
+.post-back {
+  display: inline-flex; align-items: center; gap: 6px;
+  font-size: 13.5px; color: var(--text-muted); margin-bottom: 20px;
+  text-decoration: none; transition: color 0.15s;
+}
+.post-back:hover { color: var(--accent); text-decoration: none; }
+.post-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 14px; }
+.tag {
+  display: inline-block; padding: 3px 12px; border-radius: 999px;
+  background: var(--tag-bg); color: var(--text-muted);
+  font-size: 12.5px; font-weight: 700;
+}
+.post-title {
+  font-family: 'Archivo Black', sans-serif; font-weight: 400;
+  font-size: clamp(26px, 5vw, 40px); color: var(--text);
+  line-height: 1.15; margin-bottom: 14px;
+}
+.post-byline {
+  font-size: 14px; color: var(--text-muted);
+  display: flex; align-items: center; gap: 8px; flex-wrap: wrap;
+}
+.byline-dot { opacity: 0.4; }
 
-    /* Layout */
-    .page-wrap {
-      max-width: 1100px;
-      margin: 0 auto;
-      padding: 0 24px;
-      display: grid;
-      grid-template-columns: 1fr var(--sidebar-w);
-      gap: 48px;
-      align-items: start;
-    }
-    .article-col { min-width: 0; }
-    .sidebar-col {
-      position: sticky;
-      top: 80px;
-      width: var(--sidebar-w);
-    }
+/* Article body */
+.post-body {
+  max-width: var(--content-w); margin: 0 auto 64px; padding: 0 24px;
+  font-size: 17px; line-height: 1.78; color: var(--text-body);
+}
 
-    /* Post Header */
-    .post-header { padding: 40px 0 28px; }
-    .post-tags { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 16px; }
-    .tag {
-      display: inline-block;
-      padding: 3px 12px;
-      border-radius: 999px;
-      background: var(--accent-soft);
-      color: var(--accent);
-      font-size: 12px;
-      font-weight: 700;
-      border: 1.5px solid var(--accent);
-    }
-    .post-title {
-      font-family: 'Archivo Black', sans-serif;
-      font-weight: 400;
-      font-size: clamp(26px, 4.5vw, 40px);
-      color: var(--text);
-      line-height: 1.15;
-      margin-bottom: 14px;
-    }
-    .post-subtitle {
-      font-size: 18px;
-      color: var(--text-muted);
-      line-height: 1.55;
-      margin-bottom: 20px;
-    }
-    .post-meta-row {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      font-size: 14px;
-      color: var(--text-muted);
-    }
-    .avatar-chip {
-      width: 26px;
-      height: 26px;
-      border-radius: 999px;
-      background: var(--accent);
-      color: #fff;
-      font-size: 12px;
-      font-weight: 700;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      flex-shrink: 0;
-    }
-    .meta-dot { opacity: 0.5; }
+/* ── Typography for post content ── */
+.post-body h1,
+.post-body h2,
+.post-body h3,
+.post-body h4 {
+  font-family: 'Archivo Black', sans-serif; font-weight: 400;
+  color: var(--text); line-height: 1.2;
+}
+.post-body h1 { font-size: 2em; margin: 2em 0 0.6em; }
+.post-body h2 { font-size: 1.45em; margin: 1.8em 0 0.5em; border-bottom: 2px solid var(--border); padding-bottom: 8px; }
+.post-body h3 { font-size: 1.2em; margin: 1.5em 0 0.4em; }
+.post-body h4 { font-size: 1em; margin: 1.3em 0 0.3em; }
+.post-body p { margin-bottom: 1.2em; }
+.post-body ul, .post-body ol { margin: 0.8em 0 1.2em 1.6em; }
+.post-body li { margin-bottom: 0.4em; }
+.post-body strong { color: var(--text); font-weight: 700; }
+.post-body em { font-style: italic; }
+.post-body a { color: var(--accent); }
+.post-body a:hover { text-decoration: underline; }
+.post-body hr {
+  border: none; border-top: 2px solid var(--border);
+  margin: 2.5em 0;
+}
+.post-body blockquote {
+  border-left: 4px solid var(--accent); background: var(--blockquote-bg);
+  border-radius: 0 8px 8px 0; padding: 14px 20px;
+  margin: 1.5em 0; color: var(--text-muted); font-style: italic;
+}
+.post-body pre {
+  background: var(--code-bg); color: var(--code-text);
+  border-radius: 10px; padding: 18px 20px; overflow-x: auto;
+  font-family: 'JetBrains Mono', monospace; font-size: 13.5px;
+  line-height: 1.6; margin: 1.5em 0;
+}
+.post-body code {
+  font-family: 'JetBrains Mono', monospace; font-size: 0.87em;
+  background: var(--tag-bg); border-radius: 4px;
+  padding: 2px 6px; color: var(--accent);
+}
+.post-body pre code {
+  background: none; padding: 0; color: inherit; font-size: inherit;
+}
+.post-body img {
+  border-radius: 10px; border: 1.5px solid var(--border);
+  margin: 1.5em auto;
+}
+.post-body table {
+  width: 100%; border-collapse: collapse; margin: 1.5em 0; font-size: 0.93em;
+}
+.post-body th, .post-body td {
+  border: 1px solid var(--border); padding: 8px 14px; text-align: left;
+}
+.post-body th { background: var(--tag-bg); font-weight: 700; color: var(--text); }
 
-    /* Hero */
-    .post-hero {
-      width: 100%;
-      aspect-ratio: 16/9;
-      border-radius: 12px;
-      border: 2px solid var(--border);
-      background: var(--bg-soft);
-      margin-bottom: 36px;
-      overflow: hidden;
-    }
-    .post-hero img { width: 100%; height: 100%; object-fit: cover; }
-    .post-hero.no-image {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 48px;
-      color: var(--text-muted);
-    }
+/* Divider */
+.post-divider {
+  max-width: var(--content-w); margin: 0 auto 40px;
+  padding: 0 24px;
+}
+.post-divider hr { border: none; border-top: 1.5px solid var(--border); }
 
-    /* Prose */
-    .prose { font-size: 17px; line-height: 1.75; color: var(--text-body); }
-    .prose h2 {
-      font-family: 'Archivo Black', sans-serif;
-      font-weight: 400;
-      font-size: 22px;
-      color: var(--text);
-      border-bottom: 2px solid var(--border);
-      padding-bottom: 8px;
-      margin-top: 40px;
-      margin-bottom: 16px;
-    }
-    .prose h3 {
-      font-family: 'Archivo Black', sans-serif;
-      font-weight: 400;
-      font-size: 18px;
-      color: var(--text);
-      margin-top: 28px;
-      margin-bottom: 12px;
-    }
-    .prose h4 {
-      font-family: 'Archivo Black', sans-serif;
-      font-weight: 400;
-      font-size: 16px;
-      color: var(--text);
-      margin-top: 24px;
-      margin-bottom: 10px;
-    }
-    .prose p { margin-bottom: 18px; }
-    .prose a { color: var(--accent); text-decoration: underline; text-underline-offset: 3px; }
-    .prose a:hover { opacity: 0.8; }
-    .prose ul, .prose ol { margin-bottom: 18px; padding-left: 28px; }
-    .prose li { margin-bottom: 6px; }
-    .prose code {
-      background: var(--tag-bg);
-      color: var(--accent);
-      font-family: 'JetBrains Mono', 'Courier New', monospace;
-      font-size: 13.5px;
-      padding: 2px 6px;
-      border-radius: 4px;
-    }
-    .prose pre {
-      position: relative;
-      background: var(--code-bg);
-      color: var(--code-text);
-      border: 2px solid var(--border-hard);
-      border-radius: 10px;
-      padding: 16px 18px;
-      font-family: 'JetBrains Mono', 'Courier New', monospace;
-      font-size: 13.5px;
-      overflow-x: auto;
-      margin-bottom: 22px;
-      line-height: 1.6;
-    }
-    .prose pre code { background: none; color: inherit; padding: 0; border-radius: 0; font-size: inherit; }
-    .copy-btn {
-      position: absolute;
-      top: 10px;
-      right: 10px;
-      padding: 4px 10px;
-      border: 1.5px solid #555;
-      border-radius: 6px;
-      background: #2a2a2a;
-      color: #ccc;
-      font-family: 'Comic Neue', sans-serif;
-      font-size: 12px;
-      cursor: pointer;
-      transition: background 0.15s, color 0.15s;
-    }
-    .copy-btn:hover { background: #3a3a3a; color: #fff; }
-    .copy-btn.copied { border-color: #4caf50; color: #4caf50; }
-    .prose blockquote {
-      border-left: 4px solid var(--accent);
-      background: var(--blockquote-bg);
-      padding: 14px 18px;
-      border-radius: 0 8px 8px 0;
-      font-style: italic;
-      color: var(--text-muted);
-      margin-bottom: 22px;
-    }
-    .prose blockquote p { margin-bottom: 0; }
-    .prose img { border-radius: 10px; border: 2px solid var(--border); margin-bottom: 22px; }
-    .prose figcaption, .prose .caption {
-      text-align: center;
-      font-size: 13px;
-      color: var(--text-muted);
-      margin-top: -16px;
-      margin-bottom: 22px;
-    }
-    .prose hr { border: none; border-top: 2px solid var(--border); margin: 36px 0; }
-    .prose .callout {
-      border: 2px solid var(--border);
-      border-left: 5px solid var(--accent);
-      background: var(--accent-soft);
-      padding: 12px 16px;
-      border-radius: 8px;
-      font-size: 15px;
-      margin-bottom: 22px;
-    }
-    .prose .callout strong { color: var(--accent); display: block; margin-bottom: 3px; }
-    .prose .callout.warning { border-left-color: #d9822b; background: #fff8f0; }
-    html.dark .prose .callout.warning { background: #2a1800; }
-    .prose .callout.warning strong { color: #d9822b; }
-    .prose table { border-collapse: collapse; width: 100%; margin-bottom: 22px; font-size: 14.5px; }
-    .prose th {
-      background: var(--tag-bg);
-      border: 1.5px solid var(--border);
-      padding: 10px 14px;
-      text-align: left;
-      font-family: 'Archivo Black', sans-serif;
-      font-weight: 400;
-      font-size: 14px;
-    }
-    .prose td { border: 1.5px solid var(--border); padding: 9px 14px; }
+/* Footer */
+.post-footer-nav {
+  max-width: var(--content-w); margin: 0 auto 48px; padding: 0 24px;
+  display: flex; justify-content: space-between; align-items: center;
+  gap: 16px;
+}
+.post-footer-nav a {
+  display: inline-flex; align-items: center; gap: 6px;
+  font-size: 14px; color: var(--text-muted); text-decoration: none;
+  padding: 8px 14px; border: 1.5px solid var(--border); border-radius: 8px;
+  transition: border-color 0.15s, color 0.15s;
+}
+.post-footer-nav a:hover { border-color: var(--accent); color: var(--accent); text-decoration: none; }
 
-    /* Post Footer */
-    .post-footer { margin-top: 48px; border-top: 2px solid var(--border); padding-top: 28px; }
-    .share-row { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; margin-bottom: 28px; }
-    .share-label { font-size: 14px; font-weight: 700; color: var(--text-muted); }
-    .share-btn {
-      padding: 7px 14px;
-      border: 2px solid var(--border-hard);
-      border-radius: 8px;
-      background: var(--bg);
-      color: var(--text);
-      font-family: inherit;
-      font-size: 13px;
-      font-weight: 700;
-      cursor: pointer;
-      box-shadow: 3px 3px 0 var(--border-hard);
-      transition: transform 0.12s, box-shadow 0.12s;
-      text-decoration: none;
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-    }
-    .share-btn:hover { transform: translate(-2px, -2px); box-shadow: 5px 5px 0 var(--border-hard); }
-    .share-btn.copied { border-color: #4caf50; color: #4caf50; box-shadow: 3px 3px 0 #4caf50; }
+footer {
+  border-top: 1px solid var(--border); text-align: center;
+  font-size: 13px; color: var(--text-muted); padding: 24px 20px;
+}
+footer a { color: var(--accent); }
+footer a:hover { text-decoration: underline; }
 
-    /* Prev/Next */
-    .prevnext { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
-    .prevnext-card {
-      border: 2px solid var(--border);
-      border-radius: 10px;
-      padding: 16px;
-      font-size: 13.5px;
-      transition: border-color 0.15s, box-shadow 0.15s, transform 0.15s;
-      cursor: pointer;
-    }
-    .prevnext-card:hover {
-      border-color: var(--accent);
-      transform: translate(-2px, -2px);
-      box-shadow: 4px 4px 0 var(--border-hard);
-    }
-    .prevnext-label { font-size: 11px; font-weight: 700; text-transform: uppercase; color: var(--text-muted); letter-spacing: 0.07em; margin-bottom: 6px; }
-    .prevnext-title { font-family: 'Archivo Black', sans-serif; font-weight: 400; font-size: 15px; color: var(--text); }
-    .prevnext-card.next { text-align: right; }
+/* Skeleton */
+.skeleton-line {
+  height: 1em; border-radius: 4px; background: var(--bg-soft);
+  animation: pulse 1.4s ease-in-out infinite; margin-bottom: 12px;
+}
+@keyframes pulse { 0%,100% { opacity:1; } 50% { opacity:0.4; } }
 
-    /* Sidebar */
-    .sidebar-block { margin-bottom: 32px; }
-    .sidebar-heading {
-      font-family: 'Archivo Black', sans-serif;
-      font-weight: 400;
-      font-size: 12px;
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-      color: var(--text-muted);
-      margin-bottom: 12px;
-    }
-    .toc-list { list-style: none; }
-    .toc-list li a {
-      display: block;
-      font-size: 13.5px;
-      color: var(--text-muted);
-      padding: 5px 10px;
-      border-left: 2px solid transparent;
-      border-radius: 0 6px 6px 0;
-      transition: color 0.15s, border-color 0.15s, background 0.15s;
-      line-height: 1.4;
-    }
-    .toc-list li a:hover { color: var(--text); background: var(--tag-bg); }
-    .toc-list li a.active { border-left-color: var(--accent); color: var(--accent); background: var(--accent-soft); }
-    .toc-list li.h3 a { padding-left: 22px; font-size: 12.5px; }
-    .related-link {
-      display: flex;
-      flex-direction: column;
-      gap: 2px;
-      padding: 10px 0;
-      border-bottom: 1px solid var(--border);
-      font-size: 13.5px;
-      color: var(--text);
-      transition: color 0.15s;
-    }
-    .related-link:last-child { border-bottom: none; }
-    .related-link:hover { color: var(--accent); }
-    .related-link-tag { font-size: 11px; font-weight: 700; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.05em; }
-    .about-text { font-size: 13.5px; color: var(--text-muted); line-height: 1.6; }
-    .about-text a { color: var(--accent); }
+/* Error */
+.error-state {
+  max-width: var(--content-w); margin: 80px auto; padding: 0 24px; text-align: center;
+}
+.error-state h2 { font-family: 'Archivo Black', sans-serif; font-size: 24px; margin-bottom: 12px; }
+.error-state p { color: var(--text-muted); margin-bottom: 20px; }
 
-    /* Loading skeletons */
-    .skeleton { background: var(--bg-soft); border-radius: 8px; animation: pulse 1.4s ease-in-out infinite; }
-    @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.45; } }
-    .loading-header { padding: 40px 0 28px; display: flex; flex-direction: column; gap: 14px; }
-    .sk-tag { height: 26px; width: 80px; border-radius: 999px; }
-    .sk-title { height: 44px; border-radius: 8px; }
-    .sk-subtitle { height: 24px; width: 55%; border-radius: 8px; }
-    .sk-meta { height: 20px; width: 200px; border-radius: 8px; }
-    .sk-hero { aspect-ratio: 16/9; border-radius: 12px; margin-bottom: 36px; }
-
-    /* Responsive */
-    @media (max-width: 860px) {
-      .page-wrap { grid-template-columns: 1fr; }
-      .sidebar-col { display: none; }
-    }
-    @media (max-width: 500px) {
-      .page-wrap { padding: 0 16px; }
-      .nav { padding: 0 16px; }
-      .prevnext { grid-template-columns: 1fr; }
-    }
-  </style>
+@media (max-width: 500px) {
+  .nav-link { display: none; }
+}
+</style>
 </head>
 <body>
 
-  <div id="progressBar"></div>
+<nav class="nav">
+  <div class="nav-brand"><a href="../index.html">Adeep<span class="dot">.</span>blog</a></div>
+  <div class="nav-spacer"></div>
+  <a class="nav-link" href="https://adeepag.com" target="_blank" rel="noopener">adeepag.com</a>
+  <a class="nav-link" href="https://github.com/adeepag" target="_blank" rel="noopener">GitHub</a>
+  <button class="theme-btn" id="themeToggle" aria-label="Toggle dark mode">
+    <svg id="themeIcon" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+      <path d="M21 12.79A9 9 0 1111.21 3a7 7 0 109.79 9.79z"/>
+    </svg>
+  </button>
+</nav>
 
-  <nav class="nav">
-    <a class="nav-back" href="/">
-      <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
-        <line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/>
-      </svg>
-      All Posts
-    </a>
-    <a class="nav-brand" href="/">Adeep<span class="dot">.</span>blog</a>
-    <button class="theme-btn" id="themeToggle" aria-label="Toggle dark mode">
-      <svg id="themeIcon" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-        <path d="M21 12.79A9 9 0 1111.21 3a7 7 0 109.79 9.79z"/>
-      </svg>
-    </button>
-  </nav>
+<!-- Filled by JS -->
+<div id="postMount"></div>
 
-  <div class="page-wrap">
-    <main class="article-col" id="articleCol">
-
-      <div id="loadingState">
-        <div class="loading-header">
-          <div class="skeleton sk-tag"></div>
-          <div class="skeleton sk-title" style="width:70%"></div>
-          <div class="skeleton sk-title" style="width:50%"></div>
-          <div class="skeleton sk-subtitle"></div>
-          <div class="skeleton sk-meta"></div>
-        </div>
-        <div class="skeleton sk-hero"></div>
-        <div style="display:flex;flex-direction:column;gap:10px">
-          <div class="skeleton" style="height:18px;border-radius:4px"></div>
-          <div class="skeleton" style="height:18px;border-radius:4px;width:90%"></div>
-          <div class="skeleton" style="height:18px;border-radius:4px;width:75%"></div>
-        </div>
-      </div>
-
-      <div id="postContent" style="display:none">
-        <div class="post-header">
-          <div class="post-tags" id="postTags"></div>
-          <h1 class="post-title" id="postTitle"></h1>
-          <p class="post-subtitle" id="postSubtitle"></p>
-          <div class="post-meta-row">
-            <div class="avatar-chip">A</div>
-            <span>Adeep AG</span>
-            <span class="meta-dot">·</span>
-            <span id="postDate"></span>
-            <span class="meta-dot">·</span>
-            <span id="postReadTime"></span>
-          </div>
-        </div>
-
-        <div class="post-hero" id="postHero"></div>
-
-        <article id="prose" class="prose"></article>
-
-        <div class="post-footer">
-          <div class="share-row">
-            <span class="share-label">Share:</span>
-            <a class="share-btn" id="shareTwitter" target="_blank" rel="noopener">
-              <svg width="14" height="14" fill="currentColor" viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.744l7.73-8.835L1.254 2.25H8.08l4.261 5.636zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
-              Twitter/X
-            </a>
-            <a class="share-btn" id="shareLinkedIn" target="_blank" rel="noopener">
-              <svg width="14" height="14" fill="currentColor" viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
-              LinkedIn
-            </a>
-            <button class="share-btn" id="copyLinkBtn">
-              <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M10 13a5 5 0 007.54.54l3-3a5 5 0 00-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 00-7.54-.54l-3 3a5 5 0 007.07 7.07l1.71-1.71"/></svg>
-              Copy Link
-            </button>
-          </div>
-          <div class="prevnext" id="prevNext"></div>
-        </div>
-      </div>
-
-    </main>
-
-    <aside class="sidebar-col">
-      <div class="sidebar-block" id="tocBlock">
-        <div class="sidebar-heading">On this page</div>
-        <ul class="toc-list" id="tocList"></ul>
-      </div>
-      <div class="sidebar-block" id="relatedBlock">
-        <div class="sidebar-heading">Related Posts</div>
-        <div id="relatedLinks"></div>
-      </div>
-      <div class="sidebar-block">
-        <div class="sidebar-heading">About</div>
-        <p class="about-text">Written by <a href="https://adeepag.com" target="_blank" rel="noopener">Adeep AG</a> — engineer, open-source builder, and occasional hardware tinkerer.</p>
-      </div>
-    </aside>
-  </div>
+<footer>
+  © <span id="footerYear"></span> Adeep AG ·
+  <a href="https://adeepag.com" target="_blank" rel="noopener">adeepag.com</a> ·
+  <a href="https://github.com/adeepag" target="_blank" rel="noopener">GitHub</a>
+</footer>
 
 <script>
-  const API = 'https://adeepag-blog-admin.onrender.com';
+  document.getElementById('footerYear').textContent = new Date().getFullYear();
 
-  /* Dark mode */
+  /* ── Dark mode ── */
   const THEME_KEY = 'blog-theme';
   const html = document.documentElement;
   const themeBtn = document.getElementById('themeToggle');
-
-  const SUN_ICON = `<svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-    <circle cx="12" cy="12" r="5"/>
-    <line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/>
-    <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
-    <line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/>
-    <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
-  </svg>`;
-  const MOON_ICON = `<svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-    <path d="M21 12.79A9 9 0 1111.21 3a7 7 0 109.79 9.79z"/>
-  </svg>`;
-
-  function applyTheme(theme) {
-    html.classList.toggle('dark', theme === 'dark');
-    themeBtn.innerHTML = theme === 'dark' ? SUN_ICON : MOON_ICON;
+  const SUN = `<svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>`;
+  const MOON = `<svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1111.21 3a7 7 0 109.79 9.79z"/></svg>`;
+  function applyTheme(t) {
+    html.classList.toggle('dark', t === 'dark');
+    themeBtn.innerHTML = t === 'dark' ? SUN : MOON;
   }
-  const savedTheme = localStorage.getItem(THEME_KEY)
-    || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
-  applyTheme(savedTheme);
+  const saved = localStorage.getItem(THEME_KEY) || (matchMedia('(prefers-color-scheme:dark)').matches ? 'dark' : 'light');
+  applyTheme(saved);
   themeBtn.addEventListener('click', () => {
     const next = html.classList.contains('dark') ? 'light' : 'dark';
     localStorage.setItem(THEME_KEY, next);
     applyTheme(next);
   });
 
-  /* Progress bar */
-  const progressBar = document.getElementById('progressBar');
-  window.addEventListener('scroll', () => {
-    const article = document.getElementById('prose');
-    if (!article) return;
-    const total = article.offsetHeight + article.offsetTop - window.innerHeight;
-    const pct = total > 0 ? (window.scrollY / total) * 100 : 0;
-    progressBar.style.width = Math.min(Math.max(pct, 0), 100) + '%';
-  }, { passive: true });
+  /* ── Load post ── */
+  const slug = new URLSearchParams(location.search).get('slug');
+  const mount = document.getElementById('postMount');
 
-  function formatDate(iso) {
+  function fmtDate(iso) {
     if (!iso) return '';
-    return new Date(iso).toLocaleDateString('en-US', { month: 'long', year: 'numeric' });
+    return new Date(iso).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
   }
 
-  /* Build TOC */
-  function buildTOC() {
-    const prose = document.getElementById('prose');
-    const headings = prose.querySelectorAll('h2, h3');
-    const tocList = document.getElementById('tocList');
-
-    if (!headings.length) {
-      document.getElementById('tocBlock').style.display = 'none';
-      return;
-    }
-
-    headings.forEach((h, i) => {
-      if (!h.id) h.id = `heading-${i}`;
-      const li = document.createElement('li');
-      li.className = h.tagName === 'H3' ? 'h3' : '';
-      li.innerHTML = `<a href="#${h.id}">${h.textContent}</a>`;
-      tocList.appendChild(li);
-    });
-
-    const observer = new IntersectionObserver(entries => {
-      entries.forEach(entry => {
-        const link = tocList.querySelector(`a[href="#${entry.target.id}"]`);
-        if (link) link.classList.toggle('active', entry.isIntersecting);
-      });
-    }, { rootMargin: '-20% 0px -70% 0px' });
-    headings.forEach(h => observer.observe(h));
+  function showSkeleton() {
+    mount.innerHTML = `
+      <div class="post-header" style="margin-top:48px">
+        <div class="skeleton-line" style="width:60%;height:14px"></div>
+        <div class="skeleton-line" style="width:80%;height:36px;margin-top:16px"></div>
+        <div class="skeleton-line" style="width:40%;height:14px;margin-top:12px"></div>
+      </div>
+      <div class="post-body">
+        ${Array.from({length:6},(_,i)=>`<div class="skeleton-line" style="width:${85+Math.random()*15}%"></div>`).join('')}
+      </div>`;
   }
 
-  /* Copy code buttons */
-  function attachCopyButtons() {
-    document.querySelectorAll('.prose pre').forEach(pre => {
-      const btn = document.createElement('button');
-      btn.className = 'copy-btn';
-      btn.textContent = 'Copy';
-      pre.style.position = 'relative';
-      pre.appendChild(btn);
-      btn.addEventListener('click', async () => {
-        const code = pre.querySelector('code');
-        const text = code ? code.textContent : pre.textContent.replace('Copy', '').trim();
-        try {
-          await navigator.clipboard.writeText(text);
-          btn.textContent = 'Copied!';
-          btn.classList.add('copied');
-          setTimeout(() => { btn.textContent = 'Copy'; btn.classList.remove('copied'); }, 2000);
-        } catch (_) { btn.textContent = 'Error'; }
-      });
-    });
+  function showError(msg) {
+    mount.innerHTML = `
+      <div class="error-state">
+        <h2>Post not found</h2>
+        <p>${msg}</p>
+        <a href="../index.html" style="color:var(--accent)">← Back to all posts</a>
+      </div>`;
   }
 
-  /* Share buttons */
-  function initShare() {
-    const url = encodeURIComponent(location.href);
-    const title = encodeURIComponent(document.title);
-    document.getElementById('shareTwitter').href =
-      `https://twitter.com/intent/tweet?url=${url}&text=${title}`;
-    document.getElementById('shareLinkedIn').href =
-      `https://www.linkedin.com/sharing/share-offsite/?url=${url}`;
-    document.getElementById('copyLinkBtn').addEventListener('click', async () => {
-      try {
-        await navigator.clipboard.writeText(location.href);
-        const btn = document.getElementById('copyLinkBtn');
-        btn.textContent = '✓ Copied!';
-        btn.classList.add('copied');
-        setTimeout(() => {
-          btn.innerHTML = `<svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M10 13a5 5 0 007.54.54l3-3a5 5 0 00-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 00-7.54-.54l-3 3a5 5 0 007.07 7.07l1.71-1.71"/></svg> Copy Link`;
-          btn.classList.remove('copied');
-        }, 2000);
-      } catch (_) {}
-    });
-  }
-
-  /* Related posts */
-  async function loadRelated(currentSlug, currentTags) {
-    try {
-      const posts = await fetch(`${API}/public/posts`).then(r => r.json());
-      const related = posts
-        .filter(p => p.slug !== currentSlug)
-        .filter(p => (p.tags || []).some(t => currentTags.includes(t)))
-        .slice(0, 3);
-
-      if (!related.length) { document.getElementById('relatedBlock').style.display = 'none'; return; }
-
-      document.getElementById('relatedLinks').innerHTML = related.map(p => `
-        <a href="post.html?slug=${p.slug}" class="related-link">
-          <span class="related-link-tag">${(p.tags || [])[0] || ''}</span>
-          ${p.title}
-        </a>`).join('');
-    } catch (_) {
-      document.getElementById('relatedBlock').style.display = 'none';
-    }
-  }
-
-  /* Load post */
   async function loadPost() {
-    const params = new URLSearchParams(location.search);
-    const slug = params.get('slug');
-    if (!slug) { location.href = '/'; return; }
+    if (!slug) { showError('No post slug provided in the URL.'); return; }
+    showSkeleton();
 
     try {
-      const post = await fetch(`${API}/public/posts/${slug}`).then(r => {
-        if (!r.ok) throw new Error(`HTTP ${r.status}`);
-        return r.json();
-      });
+      // 1. Load manifest to get metadata (title, date, tags, etc.)
+      const indexRes = await fetch(`index.json?v=${Date.now()}`);
+      if (!indexRes.ok) throw new Error('index.json not found');
+      const posts = await indexRes.json();
+      const meta = posts.find(p => p.slug === slug);
+      if (!meta) throw new Error(`No post with slug "${slug}" in index.json`);
 
-      /* Meta tags */
-      document.title = `${post.title} — Adeep AG Blog`;
-      document.querySelector('meta[name="description"]').content = post.excerpt || '';
-      document.querySelector('meta[property="og:title"]').content = `${post.title} — Adeep AG Blog`;
-      document.querySelector('meta[property="og:description"]').content = post.excerpt || '';
-      if (post.featured_image_url) {
-        document.querySelector('meta[property="og:image"]').content = post.featured_image_url;
-      }
+      // 2. Load the post body HTML
+      const bodyRes = await fetch(`${slug}.html?v=${Date.now()}`);
+      if (!bodyRes.ok) throw new Error(`posts/${slug}.html not found`);
+      const bodyHtml = await bodyRes.text();
 
-      /* Tags */
-      document.getElementById('postTags').innerHTML =
-        (post.tags || []).map(t => `<span class="tag">${t}</span>`).join('');
+      // 3. Update page title & meta
+      document.title = `${meta.title} — Adeep AG`;
+      document.querySelector('meta[name="description"]').setAttribute('content', meta.excerpt || '');
 
-      /* Title & subtitle */
-      document.getElementById('postTitle').textContent = post.title;
-      const subtitle = document.getElementById('postSubtitle');
-      if (post.subtitle) {
-        subtitle.textContent = post.subtitle;
-      } else {
-        subtitle.style.display = 'none';
-      }
+      // 4. Find prev / next for nav
+      const idx = posts.indexOf(meta);
+      const prev = posts[idx + 1]; // older = further in array
+      const next = posts[idx - 1]; // newer = earlier in array
 
-      /* Meta row */
-      document.getElementById('postDate').textContent = formatDate(post.published_at);
-      document.getElementById('postReadTime').textContent =
-        post.reading_time ? `${post.reading_time} min read` : '';
+      // 5. Render
+      mount.innerHTML = `
+        ${meta.image
+          ? `<div class="post-hero"><img class="post-hero-image" src="${meta.image}" alt="${meta.title}"></div>`
+          : meta.emoji
+            ? `<div class="post-hero"><div class="post-hero-emoji">${meta.emoji}</div></div>`
+            : ''}
 
-      /* Hero image */
-      const hero = document.getElementById('postHero');
-      if (post.featured_image_url) {
-        hero.innerHTML = `<img src="${post.featured_image_url}" alt="${post.title}">`;
-      } else {
-        hero.classList.add('no-image');
-        hero.textContent = '⚡';
-      }
+        <div class="post-header">
+          <a class="post-back" href="../index.html">
+            <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
+            All posts
+          </a>
+          <div class="post-tags">
+            ${(meta.tags || []).map(t => `<span class="tag">${t}</span>`).join('')}
+          </div>
+          <h1 class="post-title">${meta.title}</h1>
+          <div class="post-byline">
+            <span>Adeep AG</span>
+            ${meta.date ? `<span class="byline-dot">·</span><span>${fmtDate(meta.date)}</span>` : ''}
+            ${meta.reading_time ? `<span class="byline-dot">·</span><span>${meta.reading_time} min read</span>` : ''}
+          </div>
+        </div>
 
-      /* Content */
-      document.getElementById('prose').innerHTML = post.content_html || '<p>No content yet.</p>';
+        <div class="post-divider"><hr></div>
 
-      /* Show post */
-      document.getElementById('loadingState').style.display = 'none';
-      document.getElementById('postContent').style.display = '';
+        <article class="post-body">${bodyHtml}</article>
 
-      buildTOC();
-      attachCopyButtons();
-      initShare();
-      loadRelated(slug, post.tags || []);
-
-      /* Prev / Next */
-      try {
-        const allPosts = await fetch(`${API}/public/posts`).then(r => r.json());
-        const idx = allPosts.findIndex(p => p.slug === slug);
-        const prevPost = idx < allPosts.length - 1 ? allPosts[idx + 1] : null;
-        const nextPost = idx > 0 ? allPosts[idx - 1] : null;
-        let pnHtml = '';
-        if (prevPost) {
-          pnHtml += `<a class="prevnext-card" href="post.html?slug=${prevPost.slug}">
-            <div class="prevnext-label">← Previous</div>
-            <div class="prevnext-title">${prevPost.title}</div>
-          </a>`;
-        } else {
-          pnHtml += `<div></div>`;
-        }
-        if (nextPost) {
-          pnHtml += `<a class="prevnext-card next" href="post.html?slug=${nextPost.slug}">
-            <div class="prevnext-label">Next →</div>
-            <div class="prevnext-title">${nextPost.title}</div>
-          </a>`;
-        }
-        document.getElementById('prevNext').innerHTML = pnHtml;
-      } catch (_) {}
+        <div class="post-footer-nav">
+          ${next
+            ? `<a href="post.html?slug=${next.slug}">
+                <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
+                ${next.title}
+               </a>`
+            : '<span></span>'}
+          ${prev
+            ? `<a href="post.html?slug=${prev.slug}" style="margin-left:auto">
+                ${prev.title}
+                <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+               </a>`
+            : ''}
+        </div>`;
 
     } catch (err) {
-      location.href = '/';
+      showError(err.message);
     }
   }
 
