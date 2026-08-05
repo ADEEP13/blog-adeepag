@@ -4,28 +4,42 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Loading… — Adeep AG</title>
-<meta name="description" content="" />
-<meta property="og:title" content="" />
+
+<meta name="description"        content="" />
+<meta property="og:title"       content="" />
 <meta property="og:description" content="" />
-<meta property="og:image" content="" />
-<meta property="og:url" content="" />
-<meta property="og:type" content="article" />
-<meta name="twitter:card" content="summary_large_image" />
-<meta name="twitter:title" content="" />
+<meta property="og:image"       content="" />
+<meta property="og:url"         content="" />
+<meta property="og:type"        content="article" />
+<meta name="twitter:card"        content="summary_large_image" />
+<meta name="twitter:title"       content="" />
 <meta name="twitter:description" content="" />
-<meta name="twitter:image" content="" />
+<meta name="twitter:image"       content="" />
+
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Arvo:wght@700&family=Archivo+Black&family=Comic+Neue:wght@400;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+
 <style>
+@font-face {
+  font-family: 'Hey Gotcha';
+  src: url('../../fonts/HeyGotcha-Regular.ttf') format('truetype');
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Horiza';
+  src: url('../../fonts/Horizon.woff2') format('woff2'),
+       url('../../fonts/Horizon.otf') format('opentype');
+  font-display: swap;
+}
+
 :root {
   --bg: #ffffff;
   --bg-soft: #fafafa;
-  --text: #111111;
+  --text: #000000;
   --text-body: #333333;
-  --text-muted: #777777;
-  --border: #e0e0e0;
-  --border-hard: #000000;
+  --text-muted: #666666;
+  --border: #000000;
   --accent: #2788c7;
   --accent-soft: #eaf4fb;
   --tag-bg: #f2f2f2;
@@ -33,26 +47,26 @@
   --code-text: #eaeaea;
   --blockquote-bg: #f7f9fc;
   --nav-h: 58px;
-  --content-w: 680px;
+  --content-w: 700px;
 }
 html.dark {
   --bg: #14171a;
   --bg-soft: #1b1f23;
-  --text: #f0f0f0;
-  --text-body: #cccccc;
+  --text: #f2f2f2;
+  --text-body: #cfcfcf;
   --text-muted: #9aa0a6;
-  --border: #2e3338;
-  --border-hard: #f0f0f0;
+  --border: #f2f2f2;
   --accent: #5fb3ec;
   --accent-soft: #1d2c36;
   --tag-bg: #23272b;
   --code-bg: #0d0f11;
   --blockquote-bg: #1b1f23;
 }
+
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 html { scroll-behavior: smooth; }
 body {
-  font-family: 'Comic Neue', 'Comic Sans MS', sans-serif;
+  font-family: 'Comic Sans MS', 'Comic Sans', 'Comic Neue', sans-serif;
   background: var(--bg); color: var(--text);
   min-height: 100vh; transition: background 0.2s, color 0.2s;
 }
@@ -60,72 +74,90 @@ a { color: var(--accent); text-decoration: none; }
 a:hover { text-decoration: underline; }
 img { display: block; max-width: 100%; }
 
-/* Nav */
+/* ── Nav ── */
 .nav {
   position: sticky; top: 0; z-index: 50;
   height: var(--nav-h); background: var(--bg);
-  border-bottom: 1px solid var(--border);
+  border-bottom: 2px solid var(--border);
   display: flex; align-items: center; padding: 0 24px; gap: 16px;
   transition: background 0.2s, border-color 0.2s;
 }
 .nav-brand {
   font-family: 'Arvo', serif; font-weight: 700;
-  font-size: 18px; letter-spacing: -0.3px;
+  font-size: 20px; letter-spacing: -0.3px; flex-shrink: 0;
 }
-.nav-brand .dot { color: var(--accent); }
 .nav-brand a { color: inherit; text-decoration: none; }
+.nav-brand .dot { color: var(--accent); }
 .nav-spacer { flex: 1; }
 .nav-link {
-  font-size: 13.5px; color: var(--text-muted);
+  font-family: 'Hey Gotcha', 'Comic Sans MS', sans-serif;
+  font-size: 14px; color: var(--accent);
   padding: 6px 10px; border-radius: 8px;
-  transition: color 0.15s, background 0.15s;
-  text-decoration: none;
+  text-decoration: underline; text-underline-offset: 3px;
+  text-transform: uppercase; transition: opacity 0.15s;
 }
-.nav-link:hover { color: var(--text); background: var(--tag-bg); text-decoration: none; }
-.theme-btn {
-  width: 34px; height: 34px; border-radius: 999px;
-  border: 1.5px solid var(--border); background: var(--bg-soft);
-  cursor: pointer; display: flex; align-items: center; justify-content: center;
-  color: var(--text-muted); transition: border-color 0.2s, color 0.2s;
-}
-.theme-btn:hover { border-color: var(--accent); color: var(--accent); }
+.nav-link:hover { opacity: 0.7; text-decoration: underline; }
 
-/* Hero */
-.post-hero {
-  max-width: var(--content-w); margin: 48px auto 0; padding: 0 24px;
+/* GitHub icon link */
+.nav-github {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 34px; height: 34px; border-radius: 50%;
+  color: var(--text); transition: opacity 0.2s;
+  flex-shrink: 0;
 }
-.post-hero-image {
-  width: 100%; aspect-ratio: 16/9; object-fit: cover;
-  border-radius: 14px; border: 2px solid var(--border-hard);
-  box-shadow: 6px 6px 0 var(--border-hard); margin-bottom: 36px;
-  display: block;
-}
-.post-hero-emoji {
-  width: 100%; aspect-ratio: 16/9;
-  border-radius: 14px; border: 2px solid var(--border-hard);
-  box-shadow: 6px 6px 0 var(--border-hard); margin-bottom: 36px;
-  background: var(--tag-bg); display: flex; align-items: center;
-  justify-content: center; font-size: 72px;
-}
+.nav-github:hover { opacity: 0.6; text-decoration: none; }
+.nav-github svg { width: 22px; height: 22px; fill: currentColor; }
 
-/* Meta header */
-.post-header { max-width: var(--content-w); margin: 0 auto 36px; padding: 0 24px; }
+/* Theme toggle */
+.theme-toggle {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 38px; height: 38px; border: 2px solid var(--border); border-radius: 50%;
+  background: var(--bg); color: var(--text); cursor: pointer; flex-shrink: 0;
+  transition: opacity 0.2s;
+}
+.theme-toggle:hover { opacity: 0.7; }
+.theme-toggle svg { width: 18px; height: 18px; fill: currentColor; }
+
+/* ── Back button ── */
+.post-back-bar {
+  max-width: var(--content-w); margin: 36px auto 0; padding: 0 24px;
+}
 .post-back {
   display: inline-flex; align-items: center; gap: 6px;
-  font-size: 13.5px; color: var(--text-muted); margin-bottom: 20px;
-  text-decoration: none; transition: color 0.15s;
+  font-family: 'Comic Sans MS', 'Comic Sans', 'Comic Neue', sans-serif;
+  font-weight: 700; font-size: 16px;
+  color: var(--accent); text-decoration: none;
+  transition: opacity 0.15s;
 }
-.post-back:hover { color: var(--accent); text-decoration: none; }
+.post-back:hover { opacity: 0.75; text-decoration: none; }
+.post-back svg { width: 18px; height: 18px; }
+
+/* ── Hero image ── */
+.post-hero { max-width: var(--content-w); margin: 24px auto 0; padding: 0 24px; }
+.post-hero-image {
+  width: 100%; aspect-ratio: 16/9; object-fit: cover;
+  border-radius: 14px; border: 3px solid var(--border);
+  box-shadow: 7px 7px 0 var(--border); display: block;
+}
+.post-hero-emoji {
+  width: 100%; aspect-ratio: 16/9; border-radius: 14px;
+  border: 3px solid var(--border); box-shadow: 7px 7px 0 var(--border);
+  background: var(--tag-bg); display: flex;
+  align-items: center; justify-content: center; font-size: 80px;
+}
+
+/* ── Post header ── */
+.post-header { max-width: var(--content-w); margin: 28px auto 0; padding: 0 24px; }
 .post-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 14px; }
 .tag {
   display: inline-block; padding: 3px 12px; border-radius: 999px;
   background: var(--tag-bg); color: var(--text-muted);
-  font-size: 12.5px; font-weight: 700;
+  font-size: 12.5px; font-weight: 700; border: 1.5px solid var(--border);
 }
 .post-title {
-  font-family: 'Archivo Black', sans-serif; font-weight: 400;
+  font-family: 'Horiza', 'Archivo Black', sans-serif; font-weight: 700;
   font-size: clamp(26px, 5vw, 40px); color: var(--text);
-  line-height: 1.15; margin-bottom: 14px;
+  line-height: 1.15; margin-bottom: 14px; letter-spacing: 0.5px;
 }
 .post-byline {
   font-size: 14px; color: var(--text-muted);
@@ -133,154 +165,142 @@ img { display: block; max-width: 100%; }
 }
 .byline-dot { opacity: 0.4; }
 
-/* Article body */
-.post-body {
-  max-width: var(--content-w); margin: 0 auto 64px; padding: 0 24px;
-  font-size: 17px; line-height: 1.78; color: var(--text-body);
-}
-
-/* ── Typography for post content ── */
-.post-body h1,
-.post-body h2,
-.post-body h3,
-.post-body h4 {
-  font-family: 'Archivo Black', sans-serif; font-weight: 400;
-  color: var(--text); line-height: 1.2;
-}
-.post-body h1 { font-size: 2em; margin: 2em 0 0.6em; }
-.post-body h2 { font-size: 1.45em; margin: 1.8em 0 0.5em; border-bottom: 2px solid var(--border); padding-bottom: 8px; }
-.post-body h3 { font-size: 1.2em; margin: 1.5em 0 0.4em; }
-.post-body h4 { font-size: 1em; margin: 1.3em 0 0.3em; }
-.post-body p { margin-bottom: 1.2em; }
-.post-body ul, .post-body ol { margin: 0.8em 0 1.2em 1.6em; }
-.post-body li { margin-bottom: 0.4em; }
-.post-body strong { color: var(--text); font-weight: 700; }
-.post-body em { font-style: italic; }
-.post-body a { color: var(--accent); }
-.post-body a:hover { text-decoration: underline; }
-.post-body hr {
-  border: none; border-top: 2px solid var(--border);
-  margin: 2.5em 0;
-}
-.post-body blockquote {
-  border-left: 4px solid var(--accent); background: var(--blockquote-bg);
-  border-radius: 0 8px 8px 0; padding: 14px 20px;
-  margin: 1.5em 0; color: var(--text-muted); font-style: italic;
-}
-.post-body pre {
-  background: var(--code-bg); color: var(--code-text);
-  border-radius: 10px; padding: 18px 20px; overflow-x: auto;
-  font-family: 'JetBrains Mono', monospace; font-size: 13.5px;
-  line-height: 1.6; margin: 1.5em 0;
-}
-.post-body code {
-  font-family: 'JetBrains Mono', monospace; font-size: 0.87em;
-  background: var(--tag-bg); border-radius: 4px;
-  padding: 2px 6px; color: var(--accent);
-}
-.post-body pre code {
-  background: none; padding: 0; color: inherit; font-size: inherit;
-}
-.post-body img {
-  border-radius: 10px; border: 1.5px solid var(--border);
-  margin: 1.5em auto;
-}
-.post-body table {
-  width: 100%; border-collapse: collapse; margin: 1.5em 0; font-size: 0.93em;
-}
-.post-body th, .post-body td {
-  border: 1px solid var(--border); padding: 8px 14px; text-align: left;
-}
-.post-body th { background: var(--tag-bg); font-weight: 700; color: var(--text); }
-
-/* Divider */
-.post-divider {
-  max-width: var(--content-w); margin: 0 auto 40px;
-  padding: 0 24px;
-}
-.post-divider hr { border: none; border-top: 1.5px solid var(--border); }
-
-/* Footer */
-.post-footer-nav {
-  max-width: var(--content-w); margin: 0 auto 48px; padding: 0 24px;
-  display: flex; justify-content: space-between; align-items: center;
-  gap: 16px;
-}
-.post-footer-nav a {
-  display: inline-flex; align-items: center; gap: 6px;
-  font-size: 14px; color: var(--text-muted); text-decoration: none;
-  padding: 8px 14px; border: 1.5px solid var(--border); border-radius: 8px;
-  transition: border-color 0.15s, color 0.15s;
-}
-.post-footer-nav a:hover { border-color: var(--accent); color: var(--accent); text-decoration: none; }
-
-footer {
-  border-top: 1px solid var(--border); text-align: center;
-  font-size: 13px; color: var(--text-muted); padding: 24px 20px;
-}
-footer a { color: var(--accent); }
-footer a:hover { text-decoration: underline; }
-
-/* Share bar */
+/* ── Share bar ── */
 .share-bar {
   display: flex; align-items: center; gap: 8px;
-  margin-top: 16px; flex-wrap: wrap;
+  margin-top: 18px; flex-wrap: wrap;
 }
 .share-label {
+  font-family: 'Hey Gotcha', 'Comic Sans MS', sans-serif;
   font-size: 12px; font-weight: 700; letter-spacing: 0.06em;
   text-transform: uppercase; color: var(--text-muted); margin-right: 2px;
 }
 .share-pill {
   display: inline-flex; align-items: center; gap: 6px;
   padding: 7px 14px; border-radius: 999px;
-  border: 1.5px solid var(--border); background: var(--bg-soft);
+  border: 2px solid var(--border); background: var(--bg-soft);
   color: var(--text-muted); font-family: inherit; font-size: 13px;
   cursor: pointer; text-decoration: none;
-  transition: border-color 0.15s, color 0.15s, background 0.15s;
+  box-shadow: 2px 2px 0 var(--border);
+  transition: transform 0.12s, box-shadow 0.12s, color 0.12s;
   white-space: nowrap;
 }
-.share-pill:hover { text-decoration: none; }
-.share-pill.x:hover     { border-color: #000; color: #000; background: #f7f7f7; }
-.share-pill.li:hover    { border-color: #0a66c2; color: #0a66c2; background: #e8f0fa; }
-.share-pill.copy:hover  { border-color: var(--accent); color: var(--accent); }
-html.dark .share-pill.x:hover  { border-color: #fff; color: #fff; background: #222; }
-html.dark .share-pill.li:hover { border-color: #5ba4f5; color: #5ba4f5; background: #1a2a3a; }
+.share-pill:hover { transform: translate(-2px,-2px); box-shadow: 4px 4px 0 var(--border); text-decoration: none; }
+.share-pill.x:hover  { color: var(--text); }
+.share-pill.li:hover { color: #0a66c2; }
+.share-pill.copy:hover { color: var(--accent); }
+html.dark .share-pill.li:hover { color: #5ba4f5; }
 .share-toast {
   font-size: 12.5px; color: var(--accent);
   opacity: 0; transition: opacity 0.3s; margin-left: 2px;
 }
 .share-toast.show { opacity: 1; }
 
+/* ── Divider ── */
+.post-divider { max-width: var(--content-w); margin: 28px auto; padding: 0 24px; }
+.post-divider hr { border: none; border-top: 2px solid var(--border); }
+
+/* ── Article body ── */
+.post-body {
+  max-width: var(--content-w); margin: 0 auto 64px; padding: 0 24px;
+  font-size: 17px; line-height: 1.78; color: var(--text-body);
+}
+.post-body h1,.post-body h2,.post-body h3,.post-body h4 {
+  font-family: 'Horiza', 'Archivo Black', sans-serif; font-weight: 700;
+  color: var(--text); line-height: 1.2;
+}
+.post-body h1 { font-size: 2em; margin: 2em 0 0.6em; }
+.post-body h2 { font-size: 1.45em; margin: 1.8em 0 0.5em; border-bottom: 2px solid var(--border); padding-bottom: 8px; }
+.post-body h3 { font-size: 1.2em; margin: 1.5em 0 0.4em; }
+.post-body p { margin-bottom: 1.2em; }
+.post-body ul,.post-body ol { margin: 0.8em 0 1.2em 1.6em; }
+.post-body li { margin-bottom: 0.4em; }
+.post-body strong { color: var(--text); font-weight: 700; }
+.post-body a { color: var(--accent); }
+.post-body a:hover { text-decoration: underline; }
+.post-body hr { border: none; border-top: 2px solid var(--border); margin: 2.5em 0; }
+.post-body blockquote {
+  border-left: 4px solid var(--accent); background: var(--blockquote-bg);
+  border-radius: 0 10px 10px 0; padding: 14px 20px;
+  margin: 1.5em 0; color: var(--text-muted); font-style: italic;
+}
+.post-body pre {
+  background: var(--code-bg); color: var(--code-text);
+  border-radius: 10px; border: 2px solid var(--border);
+  padding: 18px 20px; overflow-x: auto;
+  font-family: 'JetBrains Mono', monospace; font-size: 13.5px;
+  line-height: 1.6; margin: 1.5em 0;
+  box-shadow: 4px 4px 0 var(--border);
+}
+.post-body code {
+  font-family: 'JetBrains Mono', monospace; font-size: 0.87em;
+  background: var(--tag-bg); border-radius: 4px;
+  padding: 2px 6px; color: var(--accent);
+}
+.post-body pre code { background: none; padding: 0; color: inherit; font-size: inherit; }
+.post-body img {
+  border-radius: 10px; border: 2px solid var(--border);
+  margin: 1.5em auto; box-shadow: 4px 4px 0 var(--border);
+}
+.post-body table { width: 100%; border-collapse: collapse; margin: 1.5em 0; font-size: 0.93em; }
+.post-body th,.post-body td { border: 2px solid var(--border); padding: 8px 14px; text-align: left; }
+.post-body th { background: var(--tag-bg); font-weight: 700; color: var(--text); }
+
+/* ── Prev/next nav ── */
+.post-footer-nav {
+  max-width: var(--content-w); margin: 0 auto 56px; padding: 0 24px;
+  display: flex; justify-content: space-between; align-items: center; gap: 16px;
+}
+.post-footer-nav a {
+  display: inline-flex; align-items: center; gap: 6px;
+  font-size: 14px; font-weight: 700; color: var(--text-muted);
+  text-decoration: none; padding: 9px 16px;
+  border: 2px solid var(--border); border-radius: 8px;
+  box-shadow: 3px 3px 0 var(--border);
+  transition: transform 0.12s, box-shadow 0.12s, color 0.12s;
+}
+.post-footer-nav a:hover {
+  transform: translate(-2px,-2px); box-shadow: 5px 5px 0 var(--border);
+  color: var(--accent); text-decoration: none;
+}
+
 /* Skeleton */
 .skeleton-line {
   height: 1em; border-radius: 4px; background: var(--bg-soft);
   animation: pulse 1.4s ease-in-out infinite; margin-bottom: 12px;
 }
-@keyframes pulse { 0%,100% { opacity:1; } 50% { opacity:0.4; } }
+@keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.4} }
 
 /* Error */
-.error-state {
-  max-width: var(--content-w); margin: 80px auto; padding: 0 24px; text-align: center;
-}
-.error-state h2 { font-family: 'Archivo Black', sans-serif; font-size: 24px; margin-bottom: 12px; }
+.error-state { max-width: var(--content-w); margin: 80px auto; padding: 0 24px; text-align: center; }
+.error-state h2 { font-family: 'Horiza','Archivo Black',sans-serif; font-size: 24px; margin-bottom: 12px; }
 .error-state p { color: var(--text-muted); margin-bottom: 20px; }
 
-@media (max-width: 500px) {
-  .nav-link { display: none; }
+/* Footer */
+footer {
+  border-top: 2px solid var(--border); text-align: center;
+  font-size: 13px; color: var(--text-muted); padding: 24px 20px;
 }
+footer a { color: var(--accent); }
+footer a:hover { text-decoration: underline; }
+
+@media (max-width: 500px) { .nav-link { display: none; } }
 </style>
 </head>
 <body>
 
 <nav class="nav">
-  <div class="nav-brand"><a href="../index.html">Adeep<span class="dot">.</span>blog</a></div>
+  <div class="nav-brand"><a href="../index.html">ADEEP<span class="dot">.</span>BLOG</a></div>
   <div class="nav-spacer"></div>
-  <a class="nav-link" href="https://adeepag.com" target="_blank" rel="noopener">adeepag.com</a>
-  <a class="nav-link" href="https://github.com/adeepag" target="_blank" rel="noopener">GitHub</a>
-  <button class="theme-btn" id="themeToggle" aria-label="Toggle dark mode">
-    <svg id="themeIcon" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-      <path d="M21 12.79A9 9 0 1111.21 3a7 7 0 109.79 9.79z"/>
+  <a class="nav-link" href="https://adeepag.com">Home</a>
+  <!-- GitHub logo icon -->
+  <a class="nav-github" href="https://github.com/adeep13" target="_blank" rel="noopener" aria-label="GitHub">
+    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+      <path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/>
     </svg>
+  </a>
+  <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">
+    <svg id="themeIcon" viewBox="0 0 24 24"><path d="M12 3a9 9 0 1 0 9 9c0-.46-.04-.92-.1-1.36a5.389 5.389 0 0 1-4.4 2.26 5.403 5.403 0 0 1-3.14-9.8c-.44-.06-.9-.1-1.36-.1z"/></svg>
   </button>
 </nav>
 
@@ -290,32 +310,35 @@ html.dark .share-pill.li:hover { border-color: #5ba4f5; color: #5ba4f5; backgrou
 <footer>
   © <span id="footerYear"></span> Adeep AG ·
   <a href="https://adeepag.com" target="_blank" rel="noopener">adeepag.com</a> ·
-  <a href="https://github.com/adeepag" target="_blank" rel="noopener">GitHub</a>
+  <a href="https://github.com/adeep13" target="_blank" rel="noopener">GitHub</a>
 </footer>
 
 <script>
   document.getElementById('footerYear').textContent = new Date().getFullYear();
 
   /* ── Dark mode ── */
-  const THEME_KEY = 'blog-theme';
+  const THEME_KEY = 'site-theme';
   const html = document.documentElement;
-  const themeBtn = document.getElementById('themeToggle');
-  const SUN = `<svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>`;
-  const MOON = `<svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1111.21 3a7 7 0 109.79 9.79z"/></svg>`;
-  function applyTheme(t) {
-    html.classList.toggle('dark', t === 'dark');
-    themeBtn.innerHTML = t === 'dark' ? SUN : MOON;
+  const themeToggle = document.getElementById('themeToggle');
+  const themeIcon   = document.getElementById('themeIcon');
+
+  function setTheme(mode) {
+    if (mode === 'dark') {
+      html.classList.add('dark');
+      themeIcon.innerHTML = '<path d="M6.76 4.84l-1.8-1.79-1.41 1.41 1.79 1.79 1.42-1.41zM4 10.5H1v2h3v-2zm9-9.95h-2V3.5h2V.55zm7.45 3.91l-1.41-1.41-1.79 1.79 1.41 1.41 1.79-1.79zm-3.21 13.7l1.79 1.8 1.41-1.41-1.8-1.79-1.4 1.4zM20 10.5v2h3v-2h-3zm-8-5a5 5 0 100 10 5 5 0 000-10zm-1 16.95h2V19.5h-2v2.95zm-7.45-3.91l1.41 1.41 1.79-1.8-1.41-1.41-1.79 1.8z"/>';
+    } else {
+      html.classList.remove('dark');
+      themeIcon.innerHTML = '<path d="M12 3a9 9 0 1 0 9 9c0-.46-.04-.92-.1-1.36a5.389 5.389 0 0 1-4.4 2.26 5.403 5.403 0 0 1-3.14-9.8c-.44-.06-.9-.1-1.36-.1z"/>';
+    }
+    localStorage.setItem(THEME_KEY, mode);
   }
+
   const saved = localStorage.getItem(THEME_KEY) || (matchMedia('(prefers-color-scheme:dark)').matches ? 'dark' : 'light');
-  applyTheme(saved);
-  themeBtn.addEventListener('click', () => {
-    const next = html.classList.contains('dark') ? 'light' : 'dark';
-    localStorage.setItem(THEME_KEY, next);
-    applyTheme(next);
-  });
+  setTheme(saved);
+  themeToggle.addEventListener('click', () => setTheme(html.classList.contains('dark') ? 'light' : 'dark'));
 
   /* ── Load post ── */
-  const slug = new URLSearchParams(location.search).get('slug');
+  const slug  = new URLSearchParams(location.search).get('slug');
   const mount = document.getElementById('postMount');
 
   function fmtDate(iso) {
@@ -325,13 +348,15 @@ html.dark .share-pill.li:hover { border-color: #5ba4f5; color: #5ba4f5; backgrou
 
   function showSkeleton() {
     mount.innerHTML = `
-      <div class="post-header" style="margin-top:48px">
-        <div class="skeleton-line" style="width:60%;height:14px"></div>
-        <div class="skeleton-line" style="width:80%;height:36px;margin-top:16px"></div>
+      <div class="post-back-bar" style="margin-top:36px">
+        <div class="skeleton-line" style="width:80px;height:18px"></div>
+      </div>
+      <div class="post-header" style="margin-top:24px">
+        <div class="skeleton-line" style="width:80%;height:36px"></div>
         <div class="skeleton-line" style="width:40%;height:14px;margin-top:12px"></div>
       </div>
-      <div class="post-body">
-        ${Array.from({length:6},(_,i)=>`<div class="skeleton-line" style="width:${85+Math.random()*15}%"></div>`).join('')}
+      <div class="post-body" style="margin-top:32px">
+        ${Array.from({length:8},() => `<div class="skeleton-line" style="width:${80+Math.random()*18}%"></div>`).join('')}
       </div>`;
   }
 
@@ -340,39 +365,60 @@ html.dark .share-pill.li:hover { border-color: #5ba4f5; color: #5ba4f5; backgrou
       <div class="error-state">
         <h2>Post not found</h2>
         <p>${msg}</p>
-        <a href="../index.html" style="color:var(--accent)">← Back to all posts</a>
+        <a href="../index.html">← Back to all posts</a>
       </div>`;
   }
 
   async function loadPost() {
-    if (!slug) { showError('No post slug provided in the URL.'); return; }
+    if (!slug) { showError('No post slug in the URL.'); return; }
     showSkeleton();
 
     try {
-      // 1. Load manifest to get metadata (title, date, tags, etc.)
       const indexRes = await fetch(`index.json?v=${Date.now()}`);
       if (!indexRes.ok) throw new Error('index.json not found');
       const posts = await indexRes.json();
-      const meta = posts.find(p => p.slug === slug);
-      if (!meta) throw new Error(`No post with slug "${slug}" in index.json`);
+      const meta  = posts.find(p => p.slug === slug);
+      if (!meta) throw new Error(`No post with slug "${slug}"`);
 
-      // 2. Load the post body HTML
       const bodyRes = await fetch(`${slug}.html?v=${Date.now()}`);
       if (!bodyRes.ok) throw new Error(`posts/${slug}.html not found`);
       const bodyHtml = await bodyRes.text();
 
-      // 3. Update page title & meta
       document.title = `${meta.title} — Adeep AG`;
-      document.querySelector('meta[name="description"]').setAttribute('content', meta.excerpt || '');
 
-      // 4. Find prev / next for nav
-      const idx = posts.indexOf(meta);
-      const prev = posts[idx + 1]; // older = further in array
-      const next = posts[idx - 1]; // newer = earlier in array
+      const pageUrl = location.href;
+      const ogImg   = meta.image || 'https://blog.adeepag.com/og-cover.png';
+      function setMeta(sel, val) {
+        const el = document.querySelector(sel);
+        if (el) el.setAttribute('content', val);
+      }
+      setMeta('meta[name="description"]',         meta.excerpt || '');
+      setMeta('meta[property="og:title"]',        meta.title);
+      setMeta('meta[property="og:description"]',  meta.excerpt || '');
+      setMeta('meta[property="og:image"]',        ogImg);
+      setMeta('meta[property="og:url"]',          pageUrl);
+      setMeta('meta[name="twitter:title"]',       meta.title);
+      setMeta('meta[name="twitter:description"]', meta.excerpt || '');
+      setMeta('meta[name="twitter:image"]',       ogImg);
 
-      // 5. Render
-      let _resolvedMeta = meta; // captured for return
+      const idx  = posts.indexOf(meta);
+      const prev = posts[idx + 1];
+      const next = posts[idx - 1];
+
+      const enc  = encodeURIComponent;
+      const xUrl = `https://x.com/intent/tweet?text=${enc(meta.title)}&url=${enc(pageUrl)}`;
+      const liUrl= `https://www.linkedin.com/sharing/share-offsite/?url=${enc(pageUrl)}`;
+
       mount.innerHTML = `
+        <div class="post-back-bar">
+          <a class="post-back" href="../index.html">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M19 12H5"/><path d="M12 19l-7-7 7-7"/>
+            </svg>
+            Back
+          </a>
+        </div>
+
         ${meta.image
           ? `<div class="post-hero"><img class="post-hero-image" src="${meta.image}" alt="${meta.title}"></div>`
           : meta.emoji
@@ -380,10 +426,6 @@ html.dark .share-pill.li:hover { border-color: #5ba4f5; color: #5ba4f5; backgrou
             : ''}
 
         <div class="post-header">
-          <a class="post-back" href="../index.html">
-            <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
-            All posts
-          </a>
           <div class="post-tags">
             ${(meta.tags || []).map(t => `<span class="tag">${t}</span>`).join('')}
           </div>
@@ -393,15 +435,16 @@ html.dark .share-pill.li:hover { border-color: #5ba4f5; color: #5ba4f5; backgrou
             ${meta.date ? `<span class="byline-dot">·</span><span>${fmtDate(meta.date)}</span>` : ''}
             ${meta.reading_time ? `<span class="byline-dot">·</span><span>${meta.reading_time} min read</span>` : ''}
           </div>
-          <div class="share-bar" id="shareBar">
+
+          <div class="share-bar">
             <span class="share-label">Share</span>
-            <a class="share-pill x" id="shareX" href="#" target="_blank" rel="noopener">
+            <a class="share-pill x" href="${xUrl}" target="_blank" rel="noopener">
               <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor">
                 <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.744l7.73-8.835L1.254 2.25H8.08l4.253 5.622 5.911-5.622Zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
               </svg>
-              X
+              X (Twitter)
             </a>
-            <a class="share-pill li" id="shareLI" href="#" target="_blank" rel="noopener">
+            <a class="share-pill li" href="${liUrl}" target="_blank" rel="noopener">
               <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor">
                 <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
               </svg>
@@ -409,7 +452,8 @@ html.dark .share-pill.li:hover { border-color: #5ba4f5; color: #5ba4f5; backgrou
             </a>
             <button class="share-pill copy" id="shareCopy">
               <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                <rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/>
+                <rect x="9" y="9" width="13" height="13" rx="2"/>
+                <path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/>
               </svg>
               Copy link
             </button>
@@ -424,67 +468,38 @@ html.dark .share-pill.li:hover { border-color: #5ba4f5; color: #5ba4f5; backgrou
         <div class="post-footer-nav">
           ${next
             ? `<a href="post.html?slug=${next.slug}">
-                <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
+                <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M19 12H5"/><path d="M12 19l-7-7 7-7"/></svg>
                 ${next.title}
                </a>`
             : '<span></span>'}
           ${prev
             ? `<a href="post.html?slug=${prev.slug}" style="margin-left:auto">
                 ${prev.title}
-                <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+                <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M5 12h14"/><path d="M12 5l7 7-7 7"/></svg>
                </a>`
             : ''}
         </div>`;
 
-      return _resolvedMeta;
+      document.getElementById('shareCopy').addEventListener('click', async () => {
+        try { await navigator.clipboard.writeText(pageUrl); }
+        catch (_) {
+          const ta = document.createElement('textarea');
+          ta.value = pageUrl; document.body.appendChild(ta);
+          ta.select(); document.execCommand('copy');
+          document.body.removeChild(ta);
+        }
+        const toast = document.getElementById('shareToast');
+        toast.classList.add('show');
+        setTimeout(() => toast.classList.remove('show'), 2200);
+      });
+
+      return meta;
     } catch (err) {
       showError(err.message);
     }
   }
 
-  loadPost().then((meta) => {
-    if (!meta) return;
-
-    // ── Inject OG / Twitter meta so link previews work when shared ──
-    const pageUrl = location.href;
-    const ogImage = meta.image || '';  // use post image if available
-    function setMeta(sel, val) {
-      const el = document.querySelector(sel);
-      if (el && val) el.setAttribute('content', val);
-    }
-    setMeta('meta[property="og:title"]',       meta.title);
-    setMeta('meta[property="og:description"]', meta.excerpt || '');
-    setMeta('meta[property="og:image"]',       ogImage);
-    setMeta('meta[property="og:url"]',         pageUrl);
-    setMeta('meta[name="twitter:title"]',      meta.title);
-    setMeta('meta[name="twitter:description"]',meta.excerpt || '');
-    setMeta('meta[name="twitter:image"]',      ogImage);
-    setMeta('meta[name="description"]',        meta.excerpt || '');
-
-    // ── Wire share buttons ──
-    const enc = encodeURIComponent;
-    const xBtn   = document.getElementById('shareX');
-    const liBtn  = document.getElementById('shareLI');
-    const cpBtn  = document.getElementById('shareCopy');
-    const toast  = document.getElementById('shareToast');
-    if (!xBtn) return;
-
-    xBtn.href  = `https://x.com/intent/tweet?text=${enc(meta.title)}&url=${enc(pageUrl)}`;
-    liBtn.href = `https://www.linkedin.com/sharing/share-offsite/?url=${enc(pageUrl)}`;
-
-    cpBtn.addEventListener('click', async () => {
-      try { await navigator.clipboard.writeText(pageUrl); }
-      catch (_) {
-        // fallback for older browsers
-        const ta = document.createElement('textarea');
-        ta.value = pageUrl; document.body.appendChild(ta);
-        ta.select(); document.execCommand('copy');
-        document.body.removeChild(ta);
-      }
-      toast.classList.add('show');
-      setTimeout(() => toast.classList.remove('show'), 2200);
-    });
-  });
+  loadPost();
 </script>
 </body>
 </html>
