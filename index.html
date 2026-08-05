@@ -5,47 +5,64 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>The Build Log — Adeep AG</title>
 <meta name="description" content="Writing on engineering, hardware, open-source, and startups by Adeep AG." />
-<meta property="og:title" content="The Build Log — Adeep AG" />
-<meta property="og:description" content="Writing on engineering, hardware, open-source, and startups." />
-<meta property="og:type" content="website" />
-<meta property="og:url" content="https://blog.adeepag.com/" />
+
+<meta property="og:title"       content="The Build Log — Adeep AG" />
+<meta property="og:description" content="Writing on engineering, hardware, open-source, and startups by Adeep AG." />
+<meta property="og:type"        content="website" />
+<meta property="og:url"         content="https://blog.adeepag.com/" />
+<meta property="og:image"       content="https://blog.adeepag.com/og-cover.png" />
+<meta name="twitter:card"        content="summary_large_image" />
+<meta name="twitter:title"       content="The Build Log — Adeep AG" />
+<meta name="twitter:description" content="Writing on engineering, hardware, open-source, and startups by Adeep AG." />
+<meta name="twitter:image"       content="https://blog.adeepag.com/og-cover.png" />
+
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Arvo:wght@700&family=Archivo+Black&family=Comic+Neue:wght@400;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+
 <style>
+@font-face {
+  font-family: 'Hey Gotcha';
+  src: url('../fonts/HeyGotcha-Regular.ttf') format('truetype');
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Horiza';
+  src: url('../fonts/Horizon.woff2') format('woff2'),
+       url('../fonts/Horizon.otf') format('opentype');
+  font-display: swap;
+}
+
 :root {
   --bg: #ffffff;
   --bg-soft: #fafafa;
-  --text: #111111;
+  --text: #000000;
   --text-body: #333333;
-  --text-muted: #777777;
-  --border: #e0e0e0;
-  --border-hard: #000000;
+  --text-muted: #666666;
+  --border: #000000;
   --accent: #2788c7;
   --accent-soft: #eaf4fb;
   --tag-bg: #f2f2f2;
   --card-bg: #ffffff;
-  --featured-bg: #f7f9fc;
   --nav-h: 58px;
 }
 html.dark {
   --bg: #14171a;
   --bg-soft: #1b1f23;
-  --text: #f0f0f0;
-  --text-body: #cccccc;
+  --text: #f2f2f2;
+  --text-body: #cfcfcf;
   --text-muted: #9aa0a6;
-  --border: #2e3338;
-  --border-hard: #f0f0f0;
+  --border: #f2f2f2;
   --accent: #5fb3ec;
   --accent-soft: #1d2c36;
   --tag-bg: #23272b;
   --card-bg: #1b1f23;
-  --featured-bg: #1b1f23;
 }
+
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 html { scroll-behavior: smooth; }
 body {
-  font-family: 'Comic Neue', 'Comic Sans MS', sans-serif;
+  font-family: 'Comic Sans MS', 'Comic Sans', 'Comic Neue', sans-serif;
   background: var(--bg);
   color: var(--text);
   min-height: 100vh;
@@ -54,19 +71,19 @@ body {
 a { color: inherit; text-decoration: none; }
 img { display: block; max-width: 100%; }
 
-/* Nav */
+/* ── Nav ── */
 .nav {
   position: sticky; top: 0; z-index: 50;
   height: var(--nav-h);
   background: var(--bg);
-  border-bottom: 1px solid var(--border);
+  border-bottom: 2px solid var(--border);
   display: flex; align-items: center;
   padding: 0 24px; gap: 16px;
   transition: background 0.2s, border-color 0.2s;
 }
 .nav-brand {
   font-family: 'Arvo', serif; font-weight: 700;
-  font-size: 18px; letter-spacing: -0.3px; flex-shrink: 0;
+  font-size: 20px; letter-spacing: -0.3px; flex-shrink: 0;
 }
 .nav-brand .dot { color: var(--accent); }
 .nav-search {
@@ -74,7 +91,7 @@ img { display: block; max-width: 100%; }
 }
 .nav-search input {
   width: 100%; padding: 7px 14px 7px 36px;
-  border: 1.5px solid var(--border); border-radius: 999px;
+  border: 2px solid var(--border); border-radius: 999px;
   background: var(--bg-soft); color: var(--text);
   font-family: inherit; font-size: 13.5px; outline: none;
   transition: border-color 0.2s;
@@ -85,182 +102,181 @@ img { display: block; max-width: 100%; }
   position: absolute; left: 12px; top: 50%;
   transform: translateY(-50%); color: var(--text-muted); pointer-events: none;
 }
-.nav-links { display: flex; align-items: center; gap: 8px; flex-shrink: 0; }
+.nav-links { display: flex; align-items: center; gap: 6px; flex-shrink: 0; }
 .nav-link {
-  font-size: 13.5px; color: var(--text-muted);
+  font-family: 'Hey Gotcha', 'Comic Sans MS', sans-serif;
+  font-size: 14px; color: var(--accent);
   padding: 6px 10px; border-radius: 8px;
-  transition: color 0.15s, background 0.15s;
+  text-decoration: underline; text-underline-offset: 3px;
+  text-transform: uppercase;
+  transition: opacity 0.15s;
 }
-.nav-link:hover { color: var(--text); background: var(--tag-bg); }
-.theme-btn {
-  width: 34px; height: 34px; border-radius: 999px;
-  border: 1.5px solid var(--border); background: var(--bg-soft);
-  cursor: pointer; display: flex; align-items: center; justify-content: center;
-  color: var(--text-muted); transition: border-color 0.2s, color 0.2s, background 0.2s;
+.nav-link:hover { opacity: 0.7; }
+
+/* GitHub icon link */
+.nav-github {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 34px; height: 34px; border-radius: 50%;
+  color: var(--text); transition: opacity 0.2s;
   flex-shrink: 0;
 }
-.theme-btn:hover { border-color: var(--accent); color: var(--accent); }
+.nav-github:hover { opacity: 0.6; }
+.nav-github svg { width: 22px; height: 22px; fill: currentColor; }
 
-/* Layout */
-.container { max-width: 900px; margin: 0 auto; padding: 0 20px; }
-
-/* Page Header */
-.page-header {
-  border-left: 5px solid var(--accent);
-  padding-left: 20px; padding-right: 20px;
-  margin: 48px auto 36px; max-width: 900px;
+/* Theme toggle */
+.theme-toggle {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 38px; height: 38px;
+  border: 2px solid var(--border); border-radius: 50%;
+  background: var(--bg); color: var(--text);
+  cursor: pointer; flex-shrink: 0;
+  transition: opacity 0.2s;
 }
+.theme-toggle:hover { opacity: 0.7; }
+.theme-toggle svg { width: 18px; height: 18px; fill: currentColor; }
+
+/* ── Layout ── */
+.container { max-width: 960px; margin: 0 auto; padding: 0 24px; }
+
+.page-header { margin: 52px auto 32px; max-width: 960px; padding: 0 24px; }
 .page-header h1 {
-  font-family: 'Archivo Black', sans-serif; font-weight: 400;
-  font-size: clamp(28px, 5vw, 42px); color: var(--text); line-height: 1.1;
+  font-family: 'Horiza', 'Archivo Black', sans-serif; font-weight: 700;
+  font-size: clamp(30px, 5vw, 48px); color: var(--text); line-height: 1.1;
+  letter-spacing: 1px;
 }
-.page-header p { color: var(--text-muted); font-size: 15.5px; margin-top: 8px; }
+.page-header p { color: var(--text-muted); font-size: 15.5px; margin-top: 10px; }
 
-/* Tag Filter */
+/* Tag filter bar */
 .tag-bar {
-  max-width: 900px; margin: 0 auto 36px;
-  padding: 0 20px; display: flex; flex-wrap: wrap; gap: 8px;
+  max-width: 960px; margin: 0 auto 36px;
+  padding: 0 24px; display: flex; flex-wrap: wrap; gap: 8px;
 }
 .tag-filter {
-  padding: 6px 14px; border-radius: 999px; font-size: 13px; font-weight: 700;
-  cursor: pointer; border: 1.5px solid var(--border); background: var(--tag-bg);
+  padding: 6px 16px; border-radius: 999px; font-size: 13px; font-weight: 700;
+  cursor: pointer; border: 2px solid var(--border); background: var(--bg-soft);
   color: var(--text-muted); transition: all 0.15s; user-select: none;
+  font-family: inherit;
 }
 .tag-filter:hover { border-color: var(--accent); color: var(--accent); }
 .tag-filter.active { background: var(--accent); border-color: var(--accent); color: #fff; }
 
-/* Featured Post */
-.featured-wrap { max-width: 900px; margin: 0 auto 36px; padding: 0 20px; }
+/* ── Featured card ── */
+.featured-wrap { max-width: 960px; margin: 0 auto 36px; padding: 0 24px; }
 .featured-card {
   display: grid; grid-template-columns: 1fr 1fr;
-  border: 2px solid var(--border-hard); border-radius: 16px;
-  box-shadow: 6px 6px 0 var(--border-hard);
-  overflow: hidden; background: var(--featured-bg);
+  border: 3px solid var(--border); border-radius: 14px;
+  box-shadow: 7px 7px 0 var(--border);
+  overflow: hidden; background: var(--card-bg);
   transition: transform 0.15s, box-shadow 0.15s; cursor: pointer;
 }
-.featured-card:hover { transform: translate(-3px,-3px); box-shadow: 9px 9px 0 var(--border-hard); }
+.featured-card:hover { transform: translate(-3px,-3px); box-shadow: 10px 10px 0 var(--border); }
 .featured-thumb {
-  position: relative; min-height: 240px;
-  overflow: hidden; background: var(--tag-bg);
+  position: relative; min-height: 260px; overflow: hidden; background: var(--tag-bg);
 }
-.featured-thumb img {
-  width: 100%; height: 100%; object-fit: cover; position: absolute; inset: 0;
-}
+.featured-thumb img { width:100%; height:100%; object-fit:cover; position:absolute; inset:0; }
 .thumb-placeholder {
-  position: absolute; inset: 0;
-  display: flex; align-items: center; justify-content: center;
-  font-size: 48px; background: var(--tag-bg);
+  position:absolute; inset:0; display:flex; align-items:center;
+  justify-content:center; font-size:52px; background:var(--tag-bg);
 }
-.featured-body {
-  padding: 28px 28px 24px; display: flex; flex-direction: column; gap: 12px;
-}
+.featured-body { padding: 30px 28px 26px; display:flex; flex-direction:column; gap:14px; }
 .featured-label {
-  font-size: 11.5px; font-weight: 700; letter-spacing: 0.08em;
+  font-size: 11px; font-weight: 700; letter-spacing: 0.1em;
   text-transform: uppercase; color: var(--accent);
+  font-family: 'Hey Gotcha', 'Comic Sans MS', sans-serif;
 }
 .featured-title {
-  font-family: 'Archivo Black', sans-serif; font-weight: 400;
-  font-size: clamp(18px,2.5vw,24px); color: var(--text); line-height: 1.25;
+  font-family: 'Horiza', 'Archivo Black', sans-serif; font-weight: 700;
+  font-size: clamp(18px, 2.5vw, 24px); color: var(--text); line-height: 1.2;
 }
-.featured-excerpt { font-size: 14px; color: var(--text-body); line-height: 1.65; flex: 1; }
+.featured-excerpt { font-size: 14px; color: var(--text-body); line-height: 1.65; flex:1; }
 
-/* Post Meta */
+/* Post meta */
 .post-meta {
   display: flex; align-items: center; flex-wrap: wrap;
   gap: 6px; font-size: 13px; color: var(--text-muted);
 }
-.dot { opacity: 0.5; }
+.sep { opacity: 0.4; }
 .tag {
   display: inline-block; padding: 2px 10px; border-radius: 999px;
   background: var(--tag-bg); color: var(--text-muted);
-  font-size: 12px; font-weight: 700;
+  font-size: 12px; font-weight: 700; border: 1.5px solid var(--border);
 }
 
-/* Post Grid */
-.post-grid-wrap { max-width: 900px; margin: 0 auto 48px; padding: 0 20px; }
-.post-grid { display: grid; grid-template-columns: repeat(2,1fr); gap: 24px; }
+/* ── Post grid ── */
+.post-grid-wrap { max-width: 960px; margin: 0 auto 56px; padding: 0 24px; }
+.post-grid { display: grid; grid-template-columns: repeat(2,1fr); gap: 26px; }
 .post-card {
   display: flex; flex-direction: column;
-  border: 1px solid var(--border); border-radius: 14px;
+  border: 3px solid var(--border); border-radius: 14px;
   overflow: hidden; background: var(--card-bg);
-  transition: transform 0.15s, box-shadow 0.15s, border-color 0.15s; cursor: pointer;
+  box-shadow: 5px 5px 0 var(--border);
+  transition: transform 0.15s, box-shadow 0.15s; cursor: pointer;
 }
-.post-card:hover {
-  transform: translate(-3px,-3px);
-  box-shadow: 6px 6px 0 var(--border-hard); border-color: var(--accent);
-}
+.post-card:hover { transform: translate(-3px,-3px); box-shadow: 8px 8px 0 var(--border); }
 .post-card-thumb {
-  aspect-ratio: 16/9; overflow: hidden;
-  background: var(--tag-bg); position: relative;
+  aspect-ratio: 16/9; overflow: hidden; background: var(--tag-bg); position: relative;
 }
-.post-card-thumb img {
-  width: 100%; height: 100%; object-fit: cover; transition: transform 0.3s;
-}
-.post-card:hover .post-card-thumb img { transform: scale(1.03); }
+.post-card-thumb img { width:100%; height:100%; object-fit:cover; transition: transform 0.3s; }
+.post-card:hover .post-card-thumb img { transform: scale(1.04); }
 .thumb-emoji {
-  position: absolute; inset: 0; display: flex; align-items: center;
-  justify-content: center; font-size: 36px; background: var(--tag-bg);
+  position:absolute; inset:0; display:flex; align-items:center;
+  justify-content:center; font-size:38px;
 }
-.post-card-body {
-  padding: 14px 16px 16px; display: flex;
-  flex-direction: column; gap: 8px; flex: 1;
-}
+.post-card-body { padding: 16px 18px 18px; display:flex; flex-direction:column; gap:8px; flex:1; }
 .post-card-title {
-  font-family: 'Archivo Black', sans-serif; font-weight: 400;
+  font-family: 'Horiza', 'Archivo Black', sans-serif; font-weight: 700;
   font-size: 17px; color: var(--text); line-height: 1.3;
 }
-.post-card-excerpt { font-size: 13.5px; color: var(--text-muted); line-height: 1.6; flex: 1; }
+.post-card-excerpt { font-size: 13.5px; color: var(--text-muted); line-height: 1.6; flex:1; }
 .post-card-date { font-size: 12.5px; color: var(--text-muted); margin-top: auto; }
 
 /* Skeletons */
 .skeleton-featured {
-  height: 280px; border: 2px solid var(--border); border-radius: 16px;
+  height: 280px; border: 3px solid var(--tag-bg); border-radius: 14px;
   background: var(--bg-soft); animation: pulse 1.4s ease-in-out infinite;
 }
 .skeleton-card {
-  height: 260px; border: 1px solid var(--border); border-radius: 14px;
+  height: 260px; border: 3px solid var(--tag-bg); border-radius: 14px;
   background: var(--bg-soft); animation: pulse 1.4s ease-in-out infinite;
 }
-@keyframes pulse { 0%,100% { opacity:1; } 50% { opacity:0.5; } }
+@keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.45} }
+.empty-state { grid-column:1/-1; text-align:center; padding:56px 20px; color:var(--text-muted); font-size:15px; }
+.empty-state strong { display:block; font-size:20px; margin-bottom:8px; color:var(--text); }
 
-.empty-state { grid-column: 1/-1; text-align: center; padding: 48px 20px; color: var(--text-muted); font-size: 15px; }
-.empty-state strong { display: block; font-size: 18px; margin-bottom: 8px; color: var(--text); }
-
-/* Newsletter */
-.newsletter-wrap { max-width: 900px; margin: 0 auto 48px; padding: 0 20px; }
+/* ── Newsletter ── */
+.newsletter-wrap { max-width: 960px; margin: 0 auto 56px; padding: 0 24px; }
 .newsletter-strip {
-  background: var(--accent-soft); border: 2px solid var(--border-hard);
-  border-radius: 14px; box-shadow: 5px 5px 0 var(--border-hard);
-  padding: 28px 32px; display: flex; align-items: center; gap: 32px;
+  background: var(--accent-soft); border: 3px solid var(--border);
+  border-radius: 14px; box-shadow: 6px 6px 0 var(--border);
+  padding: 30px 36px; display: flex; align-items: center; gap: 36px;
 }
-.newsletter-text { flex: 1; }
+.newsletter-text { flex:1; }
 .newsletter-text h3 {
-  font-family: 'Archivo Black', sans-serif; font-weight: 400;
+  font-family: 'Horiza', 'Archivo Black', sans-serif; font-weight: 700;
   font-size: 20px; color: var(--text); margin-bottom: 6px;
 }
 .newsletter-text p { font-size: 14px; color: var(--text-muted); }
-.newsletter-form { display: flex; gap: 8px; flex-shrink: 0; }
+.newsletter-form { display:flex; gap:8px; flex-shrink:0; }
 .newsletter-form input {
-  padding: 9px 16px; border: 1.5px solid var(--border-hard); border-radius: 8px;
-  background: var(--bg); color: var(--text);
-  font-family: inherit; font-size: 14px; outline: none; width: 200px;
-  transition: border-color 0.2s;
+  padding: 9px 16px; border: 2px solid var(--border); border-radius: 8px;
+  background: var(--bg); color: var(--text); font-family: inherit;
+  font-size: 14px; outline: none; width: 200px; transition: border-color 0.2s;
 }
 .newsletter-form input:focus { border-color: var(--accent); }
 .newsletter-form input::placeholder { color: var(--text-muted); }
 .btn-subscribe {
-  padding: 9px 18px; border: 2px solid var(--border-hard); border-radius: 8px;
+  padding: 9px 20px; border: 2px solid var(--border); border-radius: 8px;
   background: var(--text); color: var(--bg); font-family: inherit;
   font-size: 14px; font-weight: 700; cursor: pointer;
-  box-shadow: 3px 3px 0 var(--border-hard);
+  box-shadow: 3px 3px 0 var(--border);
   transition: transform 0.12s, box-shadow 0.12s;
 }
-.btn-subscribe:hover { transform: translate(-2px,-2px); box-shadow: 5px 5px 0 var(--border-hard); }
+.btn-subscribe:hover { transform: translate(-2px,-2px); box-shadow: 5px 5px 0 var(--border); }
 
 /* Footer */
 footer {
-  border-top: 1px solid var(--border);
-  text-align: center; font-size: 13px; color: var(--text-muted); padding: 24px 20px;
+  border-top: 2px solid var(--border); text-align: center;
+  font-size: 13px; color: var(--text-muted); padding: 24px 20px;
 }
 footer a { color: var(--accent); }
 footer a:hover { text-decoration: underline; }
@@ -283,7 +299,7 @@ footer a:hover { text-decoration: underline; }
 <body>
 
 <nav class="nav">
-  <a class="nav-brand" href="/">Adeep<span class="dot">.</span>blog</a>
+  <a class="nav-brand" href="/">ADEEP<span class="dot">.</span>BLOG</a>
   <div class="nav-search">
     <svg class="nav-search-icon" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
       <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
@@ -291,18 +307,21 @@ footer a:hover { text-decoration: underline; }
     <input type="search" id="searchInput" placeholder="Search posts…" autocomplete="off" />
   </div>
   <div class="nav-links">
-    <a class="nav-link" href="https://adeepag.com" target="_blank" rel="noopener">adeepag.com</a>
-    <a class="nav-link" href="https://github.com/adeep13" target="_blank" rel="noopener">GitHub</a>
-    <button class="theme-btn" id="themeToggle" aria-label="Toggle dark mode">
-      <svg id="themeIcon" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-        <path d="M21 12.79A9 9 0 1111.21 3a7 7 0 109.79 9.79z"/>
+    <a class="nav-link" href="https://adeepag.com">Home</a>
+    <!-- GitHub logo icon -->
+    <a class="nav-github" href="https://github.com/adeep13" target="_blank" rel="noopener" aria-label="GitHub">
+      <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+        <path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/>
       </svg>
-    </button>
+    </a>
   </div>
+  <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">
+    <svg id="themeIcon" viewBox="0 0 24 24"><path d="M12 3a9 9 0 1 0 9 9c0-.46-.04-.92-.1-1.36a5.389 5.389 0 0 1-4.4 2.26 5.403 5.403 0 0 1-3.14-9.8c-.44-.06-.9-.1-1.36-.1z"/></svg>
+  </button>
 </nav>
 
-<div class="page-header container">
-  <h1>The Build Log</h1>
+<div class="page-header">
+  <h1>THE BUILD LOG :</h1>
   <p>Writing on engineering, hardware, open-source, startups, and whatever I'm building.</p>
 </div>
 
@@ -326,7 +345,7 @@ footer a:hover { text-decoration: underline; }
 <div class="newsletter-wrap">
   <div class="newsletter-strip">
     <div class="newsletter-text">
-      <h3>Stay in the loop</h3>
+      <h3>STAY IN THE LOOP :</h3>
       <p>New posts on engineering, hardware, and startups — no spam.</p>
     </div>
     <div class="newsletter-form">
@@ -339,37 +358,35 @@ footer a:hover { text-decoration: underline; }
 <footer>
   © <span id="footerYear"></span> Adeep AG ·
   <a href="https://adeepag.com" target="_blank" rel="noopener">adeepag.com</a> ·
-  <a href="https://github.com/adeepag" target="_blank" rel="noopener">GitHub</a>
+  <a href="https://github.com/adeep13" target="_blank" rel="noopener">GitHub</a>
 </footer>
 
 <script>
-  // ─── CONFIG ───────────────────────────────────────────────────
-  // All posts are listed in posts/index.json — no backend needed.
-  // To add a post: add an entry there and drop posts/{slug}.html.
   const POSTS_INDEX = 'posts/index.json';
   const POST_PAGE   = 'posts/post.html';
-  // ──────────────────────────────────────────────────────────────
 
   document.getElementById('footerYear').textContent = new Date().getFullYear();
 
   /* ── Dark mode ── */
-  const THEME_KEY = 'blog-theme';
+  const THEME_KEY = 'site-theme';
   const html = document.documentElement;
-  const themeBtn = document.getElementById('themeToggle');
-  const SUN = `<svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>`;
-  const MOON = `<svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1111.21 3a7 7 0 109.79 9.79z"/></svg>`;
+  const themeToggle = document.getElementById('themeToggle');
+  const themeIcon   = document.getElementById('themeIcon');
 
-  function applyTheme(t) {
-    html.classList.toggle('dark', t === 'dark');
-    themeBtn.innerHTML = t === 'dark' ? SUN : MOON;
+  function setTheme(mode) {
+    if (mode === 'dark') {
+      html.classList.add('dark');
+      themeIcon.innerHTML = '<path d="M6.76 4.84l-1.8-1.79-1.41 1.41 1.79 1.79 1.42-1.41zM4 10.5H1v2h3v-2zm9-9.95h-2V3.5h2V.55zm7.45 3.91l-1.41-1.41-1.79 1.79 1.41 1.41 1.79-1.79zm-3.21 13.7l1.79 1.8 1.41-1.41-1.8-1.79-1.4 1.4zM20 10.5v2h3v-2h-3zm-8-5a5 5 0 100 10 5 5 0 000-10zm-1 16.95h2V19.5h-2v2.95zm-7.45-3.91l1.41 1.41 1.79-1.8-1.41-1.41-1.79 1.8z"/>';
+    } else {
+      html.classList.remove('dark');
+      themeIcon.innerHTML = '<path d="M12 3a9 9 0 1 0 9 9c0-.46-.04-.92-.1-1.36a5.389 5.389 0 0 1-4.4 2.26 5.403 5.403 0 0 1-3.14-9.8c-.44-.06-.9-.1-1.36-.1z"/>';
+    }
+    localStorage.setItem(THEME_KEY, mode);
   }
+
   const saved = localStorage.getItem(THEME_KEY) || (matchMedia('(prefers-color-scheme:dark)').matches ? 'dark' : 'light');
-  applyTheme(saved);
-  themeBtn.addEventListener('click', () => {
-    const next = html.classList.contains('dark') ? 'light' : 'dark';
-    localStorage.setItem(THEME_KEY, next);
-    applyTheme(next);
-  });
+  setTheme(saved);
+  themeToggle.addEventListener('click', () => setTheme(html.classList.contains('dark') ? 'light' : 'dark'));
 
   /* ── Helpers ── */
   function fmtDate(iso) {
@@ -378,10 +395,6 @@ footer a:hover { text-decoration: underline; }
   }
   function tagsHtml(tags) {
     return (tags || []).map(t => `<span class="tag">${t}</span>`).join('');
-  }
-  function thumbHtml(post, cls) {
-    if (post.image) return `<img src="${post.image}" alt="${post.title}" loading="lazy">`;
-    return `<div class="${cls}">${post.emoji || '📝'}</div>`;
   }
 
   /* ── Render ── */
@@ -399,8 +412,7 @@ footer a:hover { text-decoration: underline; }
           <p class="featured-excerpt">${post.excerpt || ''}</p>
           <div class="post-meta">
             <span>Adeep AG</span>
-            <span class="dot">·</span>
-            ${post.reading_time ? `<span>${post.reading_time} min read</span>` : ''}
+            ${post.reading_time ? `<span class="sep">·</span><span>${post.reading_time} min read</span>` : ''}
             ${tagsHtml(post.tags)}
           </div>
         </div>
@@ -423,7 +435,7 @@ footer a:hover { text-decoration: underline; }
         <div class="post-card-body">
           <div class="post-meta">
             ${tagsHtml(post.tags)}
-            ${post.reading_time ? `<span class="dot">·</span><span>${post.reading_time} min read</span>` : ''}
+            ${post.reading_time ? `<span class="sep">·</span><span>${post.reading_time} min read</span>` : ''}
           </div>
           <h3 class="post-card-title">${post.title}</h3>
           <p class="post-card-excerpt">${post.excerpt || ''}</p>
@@ -464,10 +476,9 @@ footer a:hover { text-decoration: underline; }
     }
     renderGrid(rest);
 
-    // also filter featured visibility
     if (featured) {
       const tagOk = activeTag === 'all' || (featured.tags || []).map(t => t.toLowerCase()).includes(activeTag);
-      const qOk = !q || (featured.title + ' ' + (featured.excerpt || '')).toLowerCase().includes(q);
+      const qOk   = !q || (featured.title + ' ' + (featured.excerpt || '')).toLowerCase().includes(q);
       document.getElementById('featuredWrap').style.display = (tagOk && qOk) ? '' : 'none';
     }
   }
@@ -475,7 +486,6 @@ footer a:hover { text-decoration: underline; }
   /* ── Load ── */
   async function loadPosts() {
     try {
-      // Cache-bust with timestamp so GitHub Pages serves fresh JSON after a push
       const res = await fetch(`${POSTS_INDEX}?v=${Date.now()}`);
       if (!res.ok) throw new Error(`HTTP ${res.status}`);
       const posts = await res.json();
@@ -485,8 +495,6 @@ footer a:hover { text-decoration: underline; }
 
       if (posts.length > 0) {
         renderFeatured(posts[0]);
-        // Grid shows all posts except featured only when there are multiple;
-        // if only 1 post exists, also show it in the grid so the page isn't empty.
         renderGrid(posts.length > 1 ? posts.slice(1) : posts);
       } else {
         document.getElementById('featuredWrap').innerHTML = '';
