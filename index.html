@@ -454,7 +454,7 @@ footer a:hover { text-decoration: underline; }
   function applyFilters() {
     const q = document.getElementById('searchInput').value.toLowerCase().trim();
     const featured = allPosts[0];
-    let rest = allPosts.slice(1);
+    let rest = allPosts.length > 1 ? allPosts.slice(1) : allPosts;
 
     if (activeTag !== 'all') {
       rest = rest.filter(p => (p.tags || []).map(t => t.toLowerCase()).includes(activeTag));
@@ -485,7 +485,9 @@ footer a:hover { text-decoration: underline; }
 
       if (posts.length > 0) {
         renderFeatured(posts[0]);
-        renderGrid(posts.slice(1));
+        // Grid shows all posts except featured only when there are multiple;
+        // if only 1 post exists, also show it in the grid so the page isn't empty.
+        renderGrid(posts.length > 1 ? posts.slice(1) : posts);
       } else {
         document.getElementById('featuredWrap').innerHTML = '';
         renderGrid([]);
