@@ -1,0 +1,12 @@
+[
+  {
+    "slug": "hello-world",
+    "title": "Hello World — Why I Started This Blog",
+    "excerpt": "A builder's log for everything I'm learning and shipping: hardware, software, and the stuff in between.",
+    "date": "2026-08-05",
+    "tags": ["Meta", "Engineering"],
+    "reading_time": 3,
+    "emoji": "⚡",
+    "image": ""
+  }
+]
