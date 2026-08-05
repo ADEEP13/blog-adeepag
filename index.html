@@ -1,612 +1,397 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>The Build Log — Adeep AG</title>
-  <meta name="description" content="Writing on engineering, hardware, open-source, and startups by Adeep AG." />
-  <meta property="og:title" content="The Build Log — Adeep AG" />
-  <meta property="og:description" content="Writing on engineering, hardware, open-source, and startups." />
-  <meta property="og:type" content="website" />
-  <meta property="og:url" content="https://blog.adeepag.com/" />
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Arvo:wght@700&family=Archivo+Black&family=Comic+Neue:wght@400;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
-  <style>
-    :root {
-      --bg: #ffffff;
-      --bg-soft: #fafafa;
-      --text: #111111;
-      --text-body: #333333;
-      --text-muted: #777777;
-      --border: #e0e0e0;
-      --border-hard: #000000;
-      --accent: #2788c7;
-      --accent-soft: #eaf4fb;
-      --tag-bg: #f2f2f2;
-      --card-bg: #ffffff;
-      --featured-bg: #f7f9fc;
-      --code-bg: #1e1e1e;
-      --code-text: #eaeaea;
-      --blockquote-bg: #f7f9fc;
-      --nav-h: 58px;
-    }
-    html.dark {
-      --bg: #14171a;
-      --bg-soft: #1b1f23;
-      --text: #f0f0f0;
-      --text-body: #cccccc;
-      --text-muted: #9aa0a6;
-      --border: #2e3338;
-      --border-hard: #f0f0f0;
-      --accent: #5fb3ec;
-      --accent-soft: #1d2c36;
-      --tag-bg: #23272b;
-      --card-bg: #1b1f23;
-      --featured-bg: #1b1f23;
-      --code-bg: #0d0f11;
-      --blockquote-bg: #1b1f23;
-    }
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>The Build Log — Adeep AG</title>
+<meta name="description" content="Writing on engineering, hardware, open-source, and startups by Adeep AG." />
+<meta property="og:title" content="The Build Log — Adeep AG" />
+<meta property="og:description" content="Writing on engineering, hardware, open-source, and startups." />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="https://blog.adeepag.com/" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Arvo:wght@700&family=Archivo+Black&family=Comic+Neue:wght@400;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<style>
+:root {
+  --bg: #ffffff;
+  --bg-soft: #fafafa;
+  --text: #111111;
+  --text-body: #333333;
+  --text-muted: #777777;
+  --border: #e0e0e0;
+  --border-hard: #000000;
+  --accent: #2788c7;
+  --accent-soft: #eaf4fb;
+  --tag-bg: #f2f2f2;
+  --card-bg: #ffffff;
+  --featured-bg: #f7f9fc;
+  --nav-h: 58px;
+}
+html.dark {
+  --bg: #14171a;
+  --bg-soft: #1b1f23;
+  --text: #f0f0f0;
+  --text-body: #cccccc;
+  --text-muted: #9aa0a6;
+  --border: #2e3338;
+  --border-hard: #f0f0f0;
+  --accent: #5fb3ec;
+  --accent-soft: #1d2c36;
+  --tag-bg: #23272b;
+  --card-bg: #1b1f23;
+  --featured-bg: #1b1f23;
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: 'Comic Neue', 'Comic Sans MS', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+  transition: background 0.2s, color 0.2s;
+}
+a { color: inherit; text-decoration: none; }
+img { display: block; max-width: 100%; }
 
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    html { scroll-behavior: smooth; }
-    body {
-      font-family: 'Comic Neue', 'Comic Sans MS', sans-serif;
-      background: var(--bg);
-      color: var(--text);
-      min-height: 100vh;
-      transition: background 0.2s, color 0.2s;
-    }
-    a { color: inherit; text-decoration: none; }
-    img { display: block; max-width: 100%; }
+/* Nav */
+.nav {
+  position: sticky; top: 0; z-index: 50;
+  height: var(--nav-h);
+  background: var(--bg);
+  border-bottom: 1px solid var(--border);
+  display: flex; align-items: center;
+  padding: 0 24px; gap: 16px;
+  transition: background 0.2s, border-color 0.2s;
+}
+.nav-brand {
+  font-family: 'Arvo', serif; font-weight: 700;
+  font-size: 18px; letter-spacing: -0.3px; flex-shrink: 0;
+}
+.nav-brand .dot { color: var(--accent); }
+.nav-search {
+  flex: 1; max-width: 280px; margin: 0 auto; position: relative;
+}
+.nav-search input {
+  width: 100%; padding: 7px 14px 7px 36px;
+  border: 1.5px solid var(--border); border-radius: 999px;
+  background: var(--bg-soft); color: var(--text);
+  font-family: inherit; font-size: 13.5px; outline: none;
+  transition: border-color 0.2s;
+}
+.nav-search input:focus { border-color: var(--accent); }
+.nav-search input::placeholder { color: var(--text-muted); }
+.nav-search-icon {
+  position: absolute; left: 12px; top: 50%;
+  transform: translateY(-50%); color: var(--text-muted); pointer-events: none;
+}
+.nav-links { display: flex; align-items: center; gap: 8px; flex-shrink: 0; }
+.nav-link {
+  font-size: 13.5px; color: var(--text-muted);
+  padding: 6px 10px; border-radius: 8px;
+  transition: color 0.15s, background 0.15s;
+}
+.nav-link:hover { color: var(--text); background: var(--tag-bg); }
+.theme-btn {
+  width: 34px; height: 34px; border-radius: 999px;
+  border: 1.5px solid var(--border); background: var(--bg-soft);
+  cursor: pointer; display: flex; align-items: center; justify-content: center;
+  color: var(--text-muted); transition: border-color 0.2s, color 0.2s, background 0.2s;
+  flex-shrink: 0;
+}
+.theme-btn:hover { border-color: var(--accent); color: var(--accent); }
 
-    /* Nav */
-    .nav {
-      position: sticky;
-      top: 0;
-      z-index: 50;
-      height: var(--nav-h);
-      background: var(--bg);
-      border-bottom: 1px solid var(--border);
-      display: flex;
-      align-items: center;
-      padding: 0 24px;
-      gap: 16px;
-      transition: background 0.2s, border-color 0.2s;
-    }
-    .nav-brand {
-      font-family: 'Arvo', serif;
-      font-weight: 700;
-      font-size: 18px;
-      letter-spacing: -0.3px;
-      flex-shrink: 0;
-    }
-    .nav-brand .dot { color: var(--accent); }
-    .nav-search {
-      flex: 1;
-      max-width: 280px;
-      margin: 0 auto;
-      position: relative;
-    }
-    .nav-search input {
-      width: 100%;
-      padding: 7px 14px 7px 36px;
-      border: 1.5px solid var(--border);
-      border-radius: 999px;
-      background: var(--bg-soft);
-      color: var(--text);
-      font-family: inherit;
-      font-size: 13.5px;
-      outline: none;
-      transition: border-color 0.2s;
-    }
-    .nav-search input:focus { border-color: var(--accent); }
-    .nav-search input::placeholder { color: var(--text-muted); }
-    .nav-search-icon {
-      position: absolute;
-      left: 12px;
-      top: 50%;
-      transform: translateY(-50%);
-      color: var(--text-muted);
-      pointer-events: none;
-    }
-    .nav-links {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      flex-shrink: 0;
-    }
-    .nav-link {
-      font-size: 13.5px;
-      color: var(--text-muted);
-      padding: 6px 10px;
-      border-radius: 8px;
-      transition: color 0.15s, background 0.15s;
-    }
-    .nav-link:hover { color: var(--text); background: var(--tag-bg); }
-    .theme-btn {
-      width: 34px;
-      height: 34px;
-      border-radius: 999px;
-      border: 1.5px solid var(--border);
-      background: var(--bg-soft);
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: var(--text-muted);
-      transition: border-color 0.2s, color 0.2s, background 0.2s;
-      flex-shrink: 0;
-    }
-    .theme-btn:hover { border-color: var(--accent); color: var(--accent); }
+/* Layout */
+.container { max-width: 900px; margin: 0 auto; padding: 0 20px; }
 
-    /* Layout */
-    .container {
-      max-width: 900px;
-      margin: 0 auto;
-      padding: 0 20px;
-    }
+/* Page Header */
+.page-header {
+  border-left: 5px solid var(--accent);
+  padding-left: 20px; padding-right: 20px;
+  margin: 48px auto 36px; max-width: 900px;
+}
+.page-header h1 {
+  font-family: 'Archivo Black', sans-serif; font-weight: 400;
+  font-size: clamp(28px, 5vw, 42px); color: var(--text); line-height: 1.1;
+}
+.page-header p { color: var(--text-muted); font-size: 15.5px; margin-top: 8px; }
 
-    /* Page Header */
-    .page-header {
-      border-left: 5px solid var(--accent);
-      padding-left: 20px;
-      padding-right: 20px;
-      margin: 48px auto 36px;
-      max-width: 900px;
-    }
-    .page-header h1 {
-      font-family: 'Archivo Black', sans-serif;
-      font-weight: 400;
-      font-size: clamp(28px, 5vw, 42px);
-      color: var(--text);
-      line-height: 1.1;
-    }
-    .page-header p {
-      color: var(--text-muted);
-      font-size: 15.5px;
-      margin-top: 8px;
-    }
+/* Tag Filter */
+.tag-bar {
+  max-width: 900px; margin: 0 auto 36px;
+  padding: 0 20px; display: flex; flex-wrap: wrap; gap: 8px;
+}
+.tag-filter {
+  padding: 6px 14px; border-radius: 999px; font-size: 13px; font-weight: 700;
+  cursor: pointer; border: 1.5px solid var(--border); background: var(--tag-bg);
+  color: var(--text-muted); transition: all 0.15s; user-select: none;
+}
+.tag-filter:hover { border-color: var(--accent); color: var(--accent); }
+.tag-filter.active { background: var(--accent); border-color: var(--accent); color: #fff; }
 
-    /* Tag Filter */
-    .tag-bar {
-      max-width: 900px;
-      margin: 0 auto 36px;
-      padding: 0 20px;
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-    }
-    .tag-filter {
-      padding: 6px 14px;
-      border-radius: 999px;
-      font-size: 13px;
-      font-weight: 700;
-      cursor: pointer;
-      border: 1.5px solid var(--border);
-      background: var(--tag-bg);
-      color: var(--text-muted);
-      transition: all 0.15s;
-      user-select: none;
-    }
-    .tag-filter:hover { border-color: var(--accent); color: var(--accent); }
-    .tag-filter.active {
-      background: var(--accent);
-      border-color: var(--accent);
-      color: #fff;
-    }
+/* Featured Post */
+.featured-wrap { max-width: 900px; margin: 0 auto 36px; padding: 0 20px; }
+.featured-card {
+  display: grid; grid-template-columns: 1fr 1fr;
+  border: 2px solid var(--border-hard); border-radius: 16px;
+  box-shadow: 6px 6px 0 var(--border-hard);
+  overflow: hidden; background: var(--featured-bg);
+  transition: transform 0.15s, box-shadow 0.15s; cursor: pointer;
+}
+.featured-card:hover { transform: translate(-3px,-3px); box-shadow: 9px 9px 0 var(--border-hard); }
+.featured-thumb {
+  position: relative; min-height: 240px;
+  overflow: hidden; background: var(--tag-bg);
+}
+.featured-thumb img {
+  width: 100%; height: 100%; object-fit: cover; position: absolute; inset: 0;
+}
+.thumb-placeholder {
+  position: absolute; inset: 0;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 48px; background: var(--tag-bg);
+}
+.featured-body {
+  padding: 28px 28px 24px; display: flex; flex-direction: column; gap: 12px;
+}
+.featured-label {
+  font-size: 11.5px; font-weight: 700; letter-spacing: 0.08em;
+  text-transform: uppercase; color: var(--accent);
+}
+.featured-title {
+  font-family: 'Archivo Black', sans-serif; font-weight: 400;
+  font-size: clamp(18px,2.5vw,24px); color: var(--text); line-height: 1.25;
+}
+.featured-excerpt { font-size: 14px; color: var(--text-body); line-height: 1.65; flex: 1; }
 
-    /* Featured Post */
-    .featured-wrap {
-      max-width: 900px;
-      margin: 0 auto 36px;
-      padding: 0 20px;
-    }
-    .featured-card {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      border: 2px solid var(--border-hard);
-      border-radius: 16px;
-      box-shadow: 6px 6px 0 var(--border-hard);
-      overflow: hidden;
-      background: var(--featured-bg);
-      transition: transform 0.15s, box-shadow 0.15s;
-      cursor: pointer;
-    }
-    .featured-card:hover {
-      transform: translate(-3px, -3px);
-      box-shadow: 9px 9px 0 var(--border-hard);
-    }
-    .featured-thumb {
-      position: relative;
-      min-height: 240px;
-      overflow: hidden;
-      background: var(--tag-bg);
-    }
-    .featured-thumb img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      position: absolute;
-      inset: 0;
-    }
-    .thumb-placeholder {
-      position: absolute;
-      inset: 0;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 48px;
-      background: var(--tag-bg);
-    }
-    .featured-body {
-      padding: 28px 28px 24px;
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-    }
-    .featured-label {
-      font-size: 11.5px;
-      font-weight: 700;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      color: var(--accent);
-    }
-    .featured-title {
-      font-family: 'Archivo Black', sans-serif;
-      font-weight: 400;
-      font-size: clamp(18px, 2.5vw, 24px);
-      color: var(--text);
-      line-height: 1.25;
-    }
-    .featured-excerpt {
-      font-size: 14px;
-      color: var(--text-body);
-      line-height: 1.65;
-      flex: 1;
-    }
+/* Post Meta */
+.post-meta {
+  display: flex; align-items: center; flex-wrap: wrap;
+  gap: 6px; font-size: 13px; color: var(--text-muted);
+}
+.dot { opacity: 0.5; }
+.tag {
+  display: inline-block; padding: 2px 10px; border-radius: 999px;
+  background: var(--tag-bg); color: var(--text-muted);
+  font-size: 12px; font-weight: 700;
+}
 
-    /* Post Meta */
-    .post-meta {
-      display: flex;
-      align-items: center;
-      flex-wrap: wrap;
-      gap: 6px;
-      font-size: 13px;
-      color: var(--text-muted);
-    }
-    .dot { opacity: 0.5; }
-    .tag {
-      display: inline-block;
-      padding: 2px 10px;
-      border-radius: 999px;
-      background: var(--tag-bg);
-      color: var(--text-muted);
-      font-size: 12px;
-      font-weight: 700;
-    }
+/* Post Grid */
+.post-grid-wrap { max-width: 900px; margin: 0 auto 48px; padding: 0 20px; }
+.post-grid { display: grid; grid-template-columns: repeat(2,1fr); gap: 24px; }
+.post-card {
+  display: flex; flex-direction: column;
+  border: 1px solid var(--border); border-radius: 14px;
+  overflow: hidden; background: var(--card-bg);
+  transition: transform 0.15s, box-shadow 0.15s, border-color 0.15s; cursor: pointer;
+}
+.post-card:hover {
+  transform: translate(-3px,-3px);
+  box-shadow: 6px 6px 0 var(--border-hard); border-color: var(--accent);
+}
+.post-card-thumb {
+  aspect-ratio: 16/9; overflow: hidden;
+  background: var(--tag-bg); position: relative;
+}
+.post-card-thumb img {
+  width: 100%; height: 100%; object-fit: cover; transition: transform 0.3s;
+}
+.post-card:hover .post-card-thumb img { transform: scale(1.03); }
+.thumb-emoji {
+  position: absolute; inset: 0; display: flex; align-items: center;
+  justify-content: center; font-size: 36px; background: var(--tag-bg);
+}
+.post-card-body {
+  padding: 14px 16px 16px; display: flex;
+  flex-direction: column; gap: 8px; flex: 1;
+}
+.post-card-title {
+  font-family: 'Archivo Black', sans-serif; font-weight: 400;
+  font-size: 17px; color: var(--text); line-height: 1.3;
+}
+.post-card-excerpt { font-size: 13.5px; color: var(--text-muted); line-height: 1.6; flex: 1; }
+.post-card-date { font-size: 12.5px; color: var(--text-muted); margin-top: auto; }
 
-    /* Post Grid */
-    .post-grid-wrap {
-      max-width: 900px;
-      margin: 0 auto 48px;
-      padding: 0 20px;
-    }
-    .post-grid {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 24px;
-    }
-    .post-card {
-      display: flex;
-      flex-direction: column;
-      border: 1px solid var(--border);
-      border-radius: 14px;
-      overflow: hidden;
-      background: var(--card-bg);
-      transition: transform 0.15s, box-shadow 0.15s, border-color 0.15s;
-      cursor: pointer;
-    }
-    .post-card:hover {
-      transform: translate(-3px, -3px);
-      box-shadow: 6px 6px 0 var(--border-hard);
-      border-color: var(--accent);
-    }
-    .post-card-thumb {
-      aspect-ratio: 16/9;
-      overflow: hidden;
-      background: var(--tag-bg);
-      position: relative;
-    }
-    .post-card-thumb img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      transition: transform 0.3s;
-    }
-    .post-card:hover .post-card-thumb img { transform: scale(1.03); }
-    .post-card-body {
-      padding: 14px 16px 16px;
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-      flex: 1;
-    }
-    .post-card-title {
-      font-family: 'Archivo Black', sans-serif;
-      font-weight: 400;
-      font-size: 17px;
-      color: var(--text);
-      line-height: 1.3;
-    }
-    .post-card-excerpt {
-      font-size: 13.5px;
-      color: var(--text-muted);
-      line-height: 1.6;
-      flex: 1;
-    }
-    .post-card-date {
-      font-size: 12.5px;
-      color: var(--text-muted);
-      margin-top: auto;
-    }
+/* Skeletons */
+.skeleton-featured {
+  height: 280px; border: 2px solid var(--border); border-radius: 16px;
+  background: var(--bg-soft); animation: pulse 1.4s ease-in-out infinite;
+}
+.skeleton-card {
+  height: 260px; border: 1px solid var(--border); border-radius: 14px;
+  background: var(--bg-soft); animation: pulse 1.4s ease-in-out infinite;
+}
+@keyframes pulse { 0%,100% { opacity:1; } 50% { opacity:0.5; } }
 
-    /* Skeletons */
-    .skeleton-featured {
-      height: 280px;
-      border: 2px solid var(--border);
-      border-radius: 16px;
-      background: var(--bg-soft);
-      animation: pulse 1.4s ease-in-out infinite;
-    }
-    .skeleton-card {
-      height: 260px;
-      border: 1px solid var(--border);
-      border-radius: 14px;
-      background: var(--bg-soft);
-      animation: pulse 1.4s ease-in-out infinite;
-    }
-    @keyframes pulse {
-      0%, 100% { opacity: 1; }
-      50% { opacity: 0.5; }
-    }
-    .empty-state {
-      grid-column: 1 / -1;
-      text-align: center;
-      padding: 48px 20px;
-      color: var(--text-muted);
-      font-size: 15px;
-    }
-    .empty-state strong { display: block; font-size: 18px; margin-bottom: 8px; color: var(--text); }
-    .error-banner {
-      background: #fff3cd;
-      border: 1.5px solid #ffc107;
-      border-radius: 10px;
-      padding: 14px 18px;
-      font-size: 14px;
-      color: #856404;
-      margin-bottom: 24px;
-    }
-    html.dark .error-banner { background: #2a2200; border-color: #7a5c00; color: #ffc107; }
-    .wake-notice {
-      background: var(--accent-soft);
-      border: 1.5px solid var(--accent);
-      border-radius: 10px;
-      padding: 12px 18px;
-      font-size: 13.5px;
-      color: var(--accent);
-      margin-bottom: 20px;
-      display: none;
-    }
-    .wake-notice.show { display: block; }
+.empty-state { grid-column: 1/-1; text-align: center; padding: 48px 20px; color: var(--text-muted); font-size: 15px; }
+.empty-state strong { display: block; font-size: 18px; margin-bottom: 8px; color: var(--text); }
 
-    /* Newsletter */
-    .newsletter-wrap {
-      max-width: 900px;
-      margin: 0 auto 48px;
-      padding: 0 20px;
-    }
-    .newsletter-strip {
-      background: var(--accent-soft);
-      border: 2px solid var(--border-hard);
-      border-radius: 14px;
-      box-shadow: 5px 5px 0 var(--border-hard);
-      padding: 28px 32px;
-      display: flex;
-      align-items: center;
-      gap: 32px;
-    }
-    .newsletter-text { flex: 1; }
-    .newsletter-text h3 {
-      font-family: 'Archivo Black', sans-serif;
-      font-weight: 400;
-      font-size: 20px;
-      color: var(--text);
-      margin-bottom: 6px;
-    }
-    .newsletter-text p { font-size: 14px; color: var(--text-muted); }
-    .newsletter-form { display: flex; gap: 8px; flex-shrink: 0; }
-    .newsletter-form input {
-      padding: 9px 16px;
-      border: 1.5px solid var(--border-hard);
-      border-radius: 8px;
-      background: var(--bg);
-      color: var(--text);
-      font-family: inherit;
-      font-size: 14px;
-      outline: none;
-      width: 200px;
-      transition: border-color 0.2s;
-    }
-    .newsletter-form input:focus { border-color: var(--accent); }
-    .newsletter-form input::placeholder { color: var(--text-muted); }
-    .btn-subscribe {
-      padding: 9px 18px;
-      border: 2px solid var(--border-hard);
-      border-radius: 8px;
-      background: var(--text);
-      color: var(--bg);
-      font-family: inherit;
-      font-size: 14px;
-      font-weight: 700;
-      cursor: pointer;
-      box-shadow: 3px 3px 0 var(--border-hard);
-      transition: transform 0.12s, box-shadow 0.12s;
-    }
-    .btn-subscribe:hover {
-      transform: translate(-2px, -2px);
-      box-shadow: 5px 5px 0 var(--border-hard);
-    }
+/* Newsletter */
+.newsletter-wrap { max-width: 900px; margin: 0 auto 48px; padding: 0 20px; }
+.newsletter-strip {
+  background: var(--accent-soft); border: 2px solid var(--border-hard);
+  border-radius: 14px; box-shadow: 5px 5px 0 var(--border-hard);
+  padding: 28px 32px; display: flex; align-items: center; gap: 32px;
+}
+.newsletter-text { flex: 1; }
+.newsletter-text h3 {
+  font-family: 'Archivo Black', sans-serif; font-weight: 400;
+  font-size: 20px; color: var(--text); margin-bottom: 6px;
+}
+.newsletter-text p { font-size: 14px; color: var(--text-muted); }
+.newsletter-form { display: flex; gap: 8px; flex-shrink: 0; }
+.newsletter-form input {
+  padding: 9px 16px; border: 1.5px solid var(--border-hard); border-radius: 8px;
+  background: var(--bg); color: var(--text);
+  font-family: inherit; font-size: 14px; outline: none; width: 200px;
+  transition: border-color 0.2s;
+}
+.newsletter-form input:focus { border-color: var(--accent); }
+.newsletter-form input::placeholder { color: var(--text-muted); }
+.btn-subscribe {
+  padding: 9px 18px; border: 2px solid var(--border-hard); border-radius: 8px;
+  background: var(--text); color: var(--bg); font-family: inherit;
+  font-size: 14px; font-weight: 700; cursor: pointer;
+  box-shadow: 3px 3px 0 var(--border-hard);
+  transition: transform 0.12s, box-shadow 0.12s;
+}
+.btn-subscribe:hover { transform: translate(-2px,-2px); box-shadow: 5px 5px 0 var(--border-hard); }
 
-    /* Footer */
-    footer {
-      border-top: 1px solid var(--border);
-      text-align: center;
-      font-size: 13px;
-      color: var(--text-muted);
-      padding: 24px 20px;
-    }
-    footer a { color: var(--accent); }
-    footer a:hover { text-decoration: underline; }
+/* Footer */
+footer {
+  border-top: 1px solid var(--border);
+  text-align: center; font-size: 13px; color: var(--text-muted); padding: 24px 20px;
+}
+footer a { color: var(--accent); }
+footer a:hover { text-decoration: underline; }
 
-    /* Responsive */
-    @media (max-width: 700px) {
-      .featured-card { grid-template-columns: 1fr; }
-      .featured-thumb { min-height: 180px; aspect-ratio: 16/9; }
-      .post-grid { grid-template-columns: 1fr; }
-      .newsletter-strip { flex-direction: column; align-items: stretch; gap: 16px; }
-      .newsletter-form { flex-direction: column; }
-      .newsletter-form input { width: 100%; }
-    }
-    @media (max-width: 500px) {
-      .nav-link { display: none; }
-      .nav-search { display: none; }
-    }
-  </style>
+/* Responsive */
+@media (max-width: 700px) {
+  .featured-card { grid-template-columns: 1fr; }
+  .featured-thumb { min-height: 180px; aspect-ratio: 16/9; }
+  .post-grid { grid-template-columns: 1fr; }
+  .newsletter-strip { flex-direction: column; align-items: stretch; gap: 16px; }
+  .newsletter-form { flex-direction: column; }
+  .newsletter-form input { width: 100%; }
+}
+@media (max-width: 500px) {
+  .nav-link { display: none; }
+  .nav-search { display: none; }
+}
+</style>
 </head>
 <body>
 
-  <nav class="nav">
-    <a class="nav-brand" href="/">Adeep<span class="dot">.</span>blog</a>
-    <div class="nav-search">
-      <svg class="nav-search-icon" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-        <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
+<nav class="nav">
+  <a class="nav-brand" href="/">Adeep<span class="dot">.</span>blog</a>
+  <div class="nav-search">
+    <svg class="nav-search-icon" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+      <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
+    </svg>
+    <input type="search" id="searchInput" placeholder="Search posts…" autocomplete="off" />
+  </div>
+  <div class="nav-links">
+    <a class="nav-link" href="https://adeepag.com" target="_blank" rel="noopener">adeepag.com</a>
+    <a class="nav-link" href="https://github.com/adeep13" target="_blank" rel="noopener">GitHub</a>
+    <button class="theme-btn" id="themeToggle" aria-label="Toggle dark mode">
+      <svg id="themeIcon" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+        <path d="M21 12.79A9 9 0 1111.21 3a7 7 0 109.79 9.79z"/>
       </svg>
-      <input type="search" id="searchInput" placeholder="Search posts…" autocomplete="off" />
+    </button>
+  </div>
+</nav>
+
+<div class="page-header container">
+  <h1>The Build Log</h1>
+  <p>Writing on engineering, hardware, open-source, startups, and whatever I'm building.</p>
+</div>
+
+<div class="tag-bar" id="tagBar">
+  <span class="tag-filter active" data-tag="all">All</span>
+</div>
+
+<div class="featured-wrap" id="featuredWrap">
+  <div class="skeleton-featured"></div>
+</div>
+
+<div class="post-grid-wrap">
+  <div class="post-grid" id="postGrid">
+    <div class="skeleton-card"></div>
+    <div class="skeleton-card"></div>
+    <div class="skeleton-card"></div>
+    <div class="skeleton-card"></div>
+  </div>
+</div>
+
+<div class="newsletter-wrap">
+  <div class="newsletter-strip">
+    <div class="newsletter-text">
+      <h3>Stay in the loop</h3>
+      <p>New posts on engineering, hardware, and startups — no spam.</p>
     </div>
-    <div class="nav-links">
-      <a class="nav-link" href="https://adeepag.com" target="_blank" rel="noopener">adeepag.com</a>
-      <a class="nav-link" href="https://github.com/adeepag" target="_blank" rel="noopener">GitHub</a>
-      <button class="theme-btn" id="themeToggle" aria-label="Toggle dark mode">
-        <svg id="themeIcon" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-          <path d="M21 12.79A9 9 0 1111.21 3a7 7 0 109.79 9.79z"/>
-        </svg>
-      </button>
-    </div>
-  </nav>
-
-  <div class="page-header container">
-    <h1>The Build Log</h1>
-    <p>Writing on engineering, hardware, open-source, startups, and whatever I'm building.</p>
-  </div>
-
-  <div class="tag-bar" id="tagBar">
-    <span class="tag-filter active" data-tag="all">All</span>
-  </div>
-
-  <div class="container">
-    <div class="wake-notice" id="wakeNotice">
-      ⏳ Waking up the server — this can take ~30s on the free tier. Hang tight!
-    </div>
-    <div id="errorBanner"></div>
-  </div>
-
-  <div class="featured-wrap" id="featuredWrap">
-    <div class="skeleton-featured"></div>
-  </div>
-
-  <div class="post-grid-wrap">
-    <div class="post-grid" id="postGrid">
-      <div class="skeleton-card"></div>
-      <div class="skeleton-card"></div>
-      <div class="skeleton-card"></div>
-      <div class="skeleton-card"></div>
+    <div class="newsletter-form">
+      <input type="email" id="emailInput" placeholder="your@email.com" />
+      <button class="btn-subscribe" id="subscribeBtn">Subscribe</button>
     </div>
   </div>
+</div>
 
-  <div class="newsletter-wrap">
-    <div class="newsletter-strip">
-      <div class="newsletter-text">
-        <h3>Stay in the loop</h3>
-        <p>New posts on engineering, hardware, and startups — no spam.</p>
-      </div>
-      <div class="newsletter-form">
-        <input type="email" id="emailInput" placeholder="your@email.com" />
-        <button class="btn-subscribe" id="subscribeBtn">Subscribe</button>
-      </div>
-    </div>
-  </div>
-
-  <footer>
-    © <span id="footerYear"></span> Adeep AG ·
-    <a href="https://adeepag.com" target="_blank" rel="noopener">adeepag.com</a> ·
-    <a href="https://github.com/adeepag" target="_blank" rel="noopener">GitHub</a>
-  </footer>
+<footer>
+  © <span id="footerYear"></span> Adeep AG ·
+  <a href="https://adeepag.com" target="_blank" rel="noopener">adeepag.com</a> ·
+  <a href="https://github.com/adeepag" target="_blank" rel="noopener">GitHub</a>
+</footer>
 
 <script>
-  const API = 'https://adeepag-blog-admin.onrender.com';
-  const WAKE_DELAY_MS = 5000;
+  // ─── CONFIG ───────────────────────────────────────────────────
+  // All posts are listed in posts/index.json — no backend needed.
+  // To add a post: add an entry there and drop posts/{slug}.html.
+  const POSTS_INDEX = 'posts/index.json';
+  const POST_PAGE   = 'posts/post.html';
+  // ──────────────────────────────────────────────────────────────
 
   document.getElementById('footerYear').textContent = new Date().getFullYear();
 
-  /* Dark mode */
+  /* ── Dark mode ── */
   const THEME_KEY = 'blog-theme';
   const html = document.documentElement;
   const themeBtn = document.getElementById('themeToggle');
+  const SUN = `<svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>`;
+  const MOON = `<svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1111.21 3a7 7 0 109.79 9.79z"/></svg>`;
 
-  const SUN_ICON = `<svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-    <circle cx="12" cy="12" r="5"/>
-    <line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/>
-    <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
-    <line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/>
-    <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
-  </svg>`;
-  const MOON_ICON = `<svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-    <path d="M21 12.79A9 9 0 1111.21 3a7 7 0 109.79 9.79z"/>
-  </svg>`;
-
-  function applyTheme(theme) {
-    html.classList.toggle('dark', theme === 'dark');
-    themeBtn.innerHTML = theme === 'dark' ? SUN_ICON : MOON_ICON;
+  function applyTheme(t) {
+    html.classList.toggle('dark', t === 'dark');
+    themeBtn.innerHTML = t === 'dark' ? SUN : MOON;
   }
-
-  const savedTheme = localStorage.getItem(THEME_KEY)
-    || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
-  applyTheme(savedTheme);
+  const saved = localStorage.getItem(THEME_KEY) || (matchMedia('(prefers-color-scheme:dark)').matches ? 'dark' : 'light');
+  applyTheme(saved);
   themeBtn.addEventListener('click', () => {
     const next = html.classList.contains('dark') ? 'light' : 'dark';
     localStorage.setItem(THEME_KEY, next);
     applyTheme(next);
   });
 
-  /* Helpers */
-  function formatDate(iso) {
+  /* ── Helpers ── */
+  function fmtDate(iso) {
     if (!iso) return '';
     return new Date(iso).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
   }
   function tagsHtml(tags) {
     return (tags || []).map(t => `<span class="tag">${t}</span>`).join('');
   }
+  function thumbHtml(post, cls) {
+    if (post.image) return `<img src="${post.image}" alt="${post.title}" loading="lazy">`;
+    return `<div class="${cls}">${post.emoji || '📝'}</div>`;
+  }
 
-  /* Render */
+  /* ── Render ── */
   function renderFeatured(post) {
-    const tagStr = (post.tags || []).join(' ').toLowerCase();
     document.getElementById('featuredWrap').innerHTML = `
-      <a href="posts/post.html?slug=${post.slug}" class="featured-card" data-tags="${tagStr}">
+      <a href="${POST_PAGE}?slug=${post.slug}" class="featured-card">
         <div class="featured-thumb">
-          ${post.featured_image_url
-            ? `<img src="${post.featured_image_url}" alt="${post.title}" loading="lazy">`
-            : `<div class="thumb-placeholder">⚡</div>`}
+          ${post.image
+            ? `<img src="${post.image}" alt="${post.title}" loading="lazy">`
+            : `<div class="thumb-placeholder">${post.emoji || '⚡'}</div>`}
         </div>
         <div class="featured-body">
           <span class="featured-label">✦ Featured Post</span>
@@ -615,7 +400,7 @@
           <div class="post-meta">
             <span>Adeep AG</span>
             <span class="dot">·</span>
-            <span>${post.reading_time ? post.reading_time + ' min read' : ''}</span>
+            ${post.reading_time ? `<span>${post.reading_time} min read</span>` : ''}
             ${tagsHtml(post.tags)}
           </div>
         </div>
@@ -628,36 +413,37 @@
       grid.innerHTML = `<div class="empty-state"><strong>No posts yet</strong>Check back soon!</div>`;
       return;
     }
-    grid.innerHTML = posts.map(post => {
-      const tagStr = (post.tags || []).join(' ').toLowerCase();
-      return `
-        <a href="posts/post.html?slug=${post.slug}" class="post-card" data-tags="${tagStr}">
-          <div class="post-card-thumb">
-            ${post.featured_image_url
-              ? `<img src="${post.featured_image_url}" alt="${post.title}" loading="lazy">`
-              : `<div class="thumb-placeholder" style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:36px;background:var(--tag-bg)">📝</div>`}
+    grid.innerHTML = posts.map(post => `
+      <a href="${POST_PAGE}?slug=${post.slug}" class="post-card">
+        <div class="post-card-thumb">
+          ${post.image
+            ? `<img src="${post.image}" alt="${post.title}" loading="lazy">`
+            : `<div class="thumb-emoji">${post.emoji || '📝'}</div>`}
+        </div>
+        <div class="post-card-body">
+          <div class="post-meta">
+            ${tagsHtml(post.tags)}
+            ${post.reading_time ? `<span class="dot">·</span><span>${post.reading_time} min read</span>` : ''}
           </div>
-          <div class="post-card-body">
-            <div class="post-meta">
-              ${tagsHtml(post.tags)}
-              ${post.reading_time ? `<span class="dot">·</span><span>${post.reading_time} min read</span>` : ''}
-            </div>
-            <h3 class="post-card-title">${post.title}</h3>
-            <p class="post-card-excerpt">${post.excerpt || ''}</p>
-            <div class="post-card-date">${formatDate(post.published_at)}</div>
-          </div>
-        </a>`;
-    }).join('');
+          <h3 class="post-card-title">${post.title}</h3>
+          <p class="post-card-excerpt">${post.excerpt || ''}</p>
+          <div class="post-card-date">${fmtDate(post.date)}</div>
+        </div>
+      </a>`).join('');
   }
 
-  /* Filters */
-  let allPostsCache = [];
+  /* ── Filter state ── */
+  let allPosts = [];
   let activeTag = 'all';
 
-  function initTagFilter() {
-    document.querySelectorAll('.tag-filter').forEach(el => {
+  function buildTagBar(posts) {
+    const allTags = [...new Set(posts.flatMap(p => p.tags || []))].sort();
+    const bar = document.getElementById('tagBar');
+    bar.innerHTML = `<span class="tag-filter active" data-tag="all">All</span>` +
+      allTags.map(t => `<span class="tag-filter" data-tag="${t.toLowerCase()}">${t}</span>`).join('');
+    bar.querySelectorAll('.tag-filter').forEach(el => {
       el.addEventListener('click', () => {
-        document.querySelectorAll('.tag-filter').forEach(t => t.classList.remove('active'));
+        bar.querySelectorAll('.tag-filter').forEach(x => x.classList.remove('active'));
         el.classList.add('active');
         activeTag = el.dataset.tag;
         applyFilters();
@@ -666,59 +452,36 @@
   }
 
   function applyFilters() {
-    const query = document.getElementById('searchInput').value.toLowerCase().trim();
-    let filtered = allPostsCache.slice(1);
+    const q = document.getElementById('searchInput').value.toLowerCase().trim();
+    const featured = allPosts[0];
+    let rest = allPosts.slice(1);
 
     if (activeTag !== 'all') {
-      filtered = filtered.filter(p =>
-        (p.tags || []).some(t => t.toLowerCase() === activeTag)
-      );
+      rest = rest.filter(p => (p.tags || []).map(t => t.toLowerCase()).includes(activeTag));
     }
-    if (query) {
-      filtered = filtered.filter(p =>
-        (p.title + ' ' + (p.excerpt || '')).toLowerCase().includes(query)
-      );
+    if (q) {
+      rest = rest.filter(p => (p.title + ' ' + (p.excerpt || '')).toLowerCase().includes(q));
     }
+    renderGrid(rest);
 
-    renderGrid(filtered);
-
-    const featured = allPostsCache[0];
-    const featuredWrap = document.getElementById('featuredWrap');
+    // also filter featured visibility
     if (featured) {
-      const tagMatch = activeTag === 'all' || (featured.tags || []).some(t => t.toLowerCase() === activeTag);
-      const queryMatch = !query || (featured.title + ' ' + (featured.excerpt || '')).toLowerCase().includes(query);
-      featuredWrap.style.display = (tagMatch && queryMatch) ? '' : 'none';
+      const tagOk = activeTag === 'all' || (featured.tags || []).map(t => t.toLowerCase()).includes(activeTag);
+      const qOk = !q || (featured.title + ' ' + (featured.excerpt || '')).toLowerCase().includes(q);
+      document.getElementById('featuredWrap').style.display = (tagOk && qOk) ? '' : 'none';
     }
   }
 
-  /* Load tags */
-  async function loadTags() {
-    try {
-      const tags = await fetch(`${API}/public/tags`).then(r => r.json());
-      const bar = document.getElementById('tagBar');
-      bar.innerHTML = `<span class="tag-filter active" data-tag="all">All</span>` +
-        tags.map(t => `<span class="tag-filter" data-tag="${t.toLowerCase()}">${t}</span>`).join('');
-      initTagFilter();
-    } catch (_) {
-      initTagFilter();
-    }
-  }
-
-  /* Load posts */
+  /* ── Load ── */
   async function loadPosts() {
-    const wakeNotice = document.getElementById('wakeNotice');
-    const errorBanner = document.getElementById('errorBanner');
-    const wakeTimer = setTimeout(() => wakeNotice.classList.add('show'), WAKE_DELAY_MS);
-
     try {
-      const posts = await fetch(`${API}/public/posts`).then(r => {
-        if (!r.ok) throw new Error(`HTTP ${r.status}`);
-        return r.json();
-      });
+      // Cache-bust with timestamp so GitHub Pages serves fresh JSON after a push
+      const res = await fetch(`${POSTS_INDEX}?v=${Date.now()}`);
+      if (!res.ok) throw new Error(`HTTP ${res.status}`);
+      const posts = await res.json();
 
-      clearTimeout(wakeTimer);
-      wakeNotice.classList.remove('show');
-      allPostsCache = posts;
+      allPosts = posts;
+      buildTagBar(posts);
 
       if (posts.length > 0) {
         renderFeatured(posts[0]);
@@ -727,17 +490,13 @@
         document.getElementById('featuredWrap').innerHTML = '';
         renderGrid([]);
       }
-
     } catch (err) {
-      clearTimeout(wakeTimer);
-      wakeNotice.classList.remove('show');
       document.getElementById('featuredWrap').innerHTML = '';
       document.getElementById('postGrid').innerHTML = `
         <div class="empty-state">
           <strong>Couldn't load posts</strong>
-          The server might be waking up. <a href="javascript:location.reload()" style="color:var(--accent)">Try again</a>
+          Make sure <code>posts/index.json</code> exists in the repo.
         </div>`;
-      errorBanner.innerHTML = `<div class="error-banner">⚠️ Failed to connect to the API. The backend at <strong>${API}</strong> may be starting up — wait 30 seconds and refresh.</div>`;
     }
   }
 
@@ -745,15 +504,11 @@
 
   document.getElementById('subscribeBtn').addEventListener('click', () => {
     const email = document.getElementById('emailInput').value.trim();
-    if (!email || !email.includes('@')) {
-      document.getElementById('emailInput').focus();
-      return;
-    }
+    if (!email || !email.includes('@')) { document.getElementById('emailInput').focus(); return; }
     alert('Thanks! Newsletter coming soon.');
     document.getElementById('emailInput').value = '';
   });
 
-  loadTags();
   loadPosts();
 </script>
 </body>
