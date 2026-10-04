@@ -12,6 +12,11 @@
 <main>
   <p><a href="/">&larr; adeep ag</a></p>
   <article class="article" id="article"><p class="sub">loading...</p></article>
+  <footer class="site-footer">
+    <p><a href="/">adeepag.com</a></p>
+    <p>written by <a href="https://adeepag.com">adeep ag</a>.<br>built for engineers, hackers, tinkerers , curious minds and web AI crawler .</p>
+    
+  </footer>
 </main>
 <script>
 const slug=new URLSearchParams(location.search).get('p')||'';
@@ -23,7 +28,7 @@ else Promise.all([
 ]).then(([list,md])=>{
   const meta=list.find(p=>p.slug===slug)||{title:slug,date:''};
   document.title=meta.title+' - adeep ag';
-  box.innerHTML='<h1></h1><p><time></time></p>'+marked.parse(md);
+  box.innerHTML='<h1></h1><div class="by"><img class="avatar" src="avatar.jpg" alt="adeep ag" onerror="this.remove()"><span>by <a href="https://adeepag.com">adeep ag</a></span><time></time></div>'+marked.parse(md);
   box.querySelector('h1').textContent=meta.title;
   const t=box.querySelector('time');t.textContent=meta.date.replace(/-/g,'.');t.dateTime=meta.date;
 }).catch(()=>{box.innerHTML='<p>post not found. <a href="/">back to home</a></p>'});
