@@ -1,0 +1,30 @@
+:root{--bg:#f3f1eb;--fg:#1d1c1a;--muted:#6f6b62;--rule:#d9d5ca;--code:#e9e5d9;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media(prefers-color-scheme:dark){:root{--bg:#16150f;--fg:#e8e5db;--muted:#98937f;--rule:#2e2c22;--code:#23211a}}
+*,*::before,*::after{box-sizing:inherit}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background:var(--bg);color:var(--fg);font:17px/1.7 Georgia,"Iowan Old Style","Times New Roman",serif;-webkit-font-smoothing:antialiased}
+main{max-width:38rem;margin:0 auto;padding:4rem 1.25rem 3rem}
+a{color:var(--fg);text-decoration-thickness:1px;text-underline-offset:3px}
+a:hover{text-decoration-thickness:2px}
+a:focus-visible{outline:2px solid var(--fg);outline-offset:3px}
+h1{font-size:2rem;line-height:1.2;margin:0;letter-spacing:-.01em}
+h1 a{text-decoration:none}
+h2{font-size:1.25rem;margin:2.5rem 0 .5rem}
+p{margin:0 0 1.1rem}
+.byline,.sub,time{color:var(--muted)}
+.byline{margin:.25rem 0 1.75rem}
+.links{display:flex;flex-wrap:wrap;gap:.25rem 1.1rem;margin:1.5rem 0 2rem}
+hr{border:0;border-top:1px solid var(--rule);margin:2.5rem 0}
+ul.posts{list-style:none;padding:0;margin:1rem 0}
+ul.posts li{display:flex;gap:1rem;margin-bottom:.6rem}
+ul.posts time{flex:none;font-variant-numeric:tabular-nums}
+footer{font-size:.9rem;color:var(--muted)}
+.article h1{margin-bottom:.25rem}
+.article img{max-width:100%;height:auto}
+.article pre{background:var(--code);padding:1rem;overflow-x:auto;font-size:.85rem;line-height:1.5}
+.article code{background:var(--code);padding:.1em .3em;font-size:.9em}
+.article pre code{background:none;padding:0}
+.article blockquote{margin:0 0 1.1rem;padding-left:1rem;border-left:2px solid var(--rule);color:var(--muted)}
+.article table{display:block;overflow-x:auto;border-collapse:collapse}
+.article td,.article th{border:1px solid var(--rule);padding:.3rem .6rem}
+@media(max-width:480px){body{font-size:16px}main{padding-top:2.5rem}ul.posts li{flex-direction:column;gap:0}}
