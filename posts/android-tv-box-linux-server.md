@@ -1,7 +1,5 @@
 
 
-# Turning an Old Android TV Box into a Linux Server
-
 I had an old Hathway SEI111H set-top box sitting unused. It is an Android TV box, and its original job is no longer relevant to me. Instead of throwing it away, I wanted to find out whether it could become a small Linux server for experiments, remote administration, and maybe a few lightweight services, managed from my Windows laptop with no keyboard or mouse plugged into the TV box.
 
 The short version: I got Ubuntu 24.04 running on it and I can reach it over SSH from my laptop. Ubuntu runs *inside* Android, not instead of it, and that difference is the most important thing to understand about this setup.
