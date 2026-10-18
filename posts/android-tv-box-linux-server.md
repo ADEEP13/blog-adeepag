@@ -1,8 +1,4 @@
----
-title: "Turning an Old Android TV Box into a Linux Server"
-date: 2026-10-18
-description: "Running Ubuntu 24.04 inside Termux on an old Hathway Android TV box and managing it from Windows over SSH."
----
+
 
 # Turning an Old Android TV Box into a Linux Server
 
