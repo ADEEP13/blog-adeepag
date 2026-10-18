@@ -1,3 +1,4 @@
 [
-  { "slug": "hello-world", "title": "hello world", "date": "2026-10-05" }
+  { "slug": "hello-world", "title": "hello world", "date": "2026-10-05" },
+  { "slug": "android-tv-box-linux-server", "title": "Turning an Old Android TV Box into a Linux Server", "date": "2026-10-18" }
 ]
