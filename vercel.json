@@ -1,0 +1,16 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "framework": null,
+  "installCommand": "npm ci",
+  "buildCommand": "npm run build",
+  "outputDirectory": "dist",
+  "trailingSlash": true,
+  "redirects": [
+    {
+      "source": "/post.html",
+      "has": [{ "type": "query", "key": "p", "value": "(?<slug>[a-z0-9-]+)" }],
+      "destination": "/posts/:slug/",
+      "permanent": true
+    }
+  ]
+}

@@ -1,0 +1,18 @@
+{
+  "name": "blog-adeepag",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Static generator for blog.adeepag.com: one SEO-friendly HTML page per Markdown post.",
+  "type": "module",
+  "engines": {
+    "node": "22.x"
+  },
+  "scripts": {
+    "build": "node scripts/build.mjs",
+    "verify": "node scripts/verify.mjs",
+    "test": "npm run build && npm run verify"
+  },
+  "dependencies": {
+    "marked": "12.0.2"
+  }
+}
